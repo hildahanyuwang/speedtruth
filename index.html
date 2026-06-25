@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpeedTruth, finding speed limits misaligned with road conditions</title>
+<style>
+ :root{--ink:#13242f;--mut:#5a6b75;--line:#dde4e8;--accent:#0a7d5a;--red:#c0144c;--amber:#f0a000}
+ *{box-sizing:border-box}
+ body{margin:0;font:16px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f6f8f9}
+ .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+ header{background:linear-gradient(160deg,#0d2a36,#11506a);color:#fff;padding:46px 0 38px}
+ header h1{margin:0 0 6px;font-size:30px;letter-spacing:.2px}
+ header p{margin:0;color:#cfe6ef;font-size:18px;max-width:760px}
+ .tag{display:inline-block;margin-top:14px;font-size:13px;color:#9fd8c6;border:1px solid #2f7d6a;border-radius:20px;padding:3px 12px}
+ section{padding:30px 0;border-bottom:1px solid var(--line)}
+ h2{font-size:20px;margin:0 0 14px}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:inherit;display:block}
+ .card:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0.05)}
+ .card h3{margin:0 0 6px;font-size:17px;color:var(--accent)}
+ .card p{margin:0;color:var(--mut);font-size:14px}
+ .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0}
+ .num{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
+ .num b{display:block;font-size:24px;color:var(--ink)}
+ .num span{font-size:12px;color:var(--mut)}
+ ul.lean{margin:8px 0 0;padding-left:20px;color:var(--mut)}
+ ul.lean li{margin:5px 0}
+ ul.lean b{color:var(--ink)}
+ footer{padding:24px 0 40px;color:var(--mut);font-size:13px}
+ @media(max-width:680px){.grid.nums{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+ <h1>SpeedTruth</h1>
+ <p>Where are posted speed limits <b>misaligned with real-world road conditions</b>, putting vulnerable road users at risk, and where should a transport ministry invest first?</p>
+ <div class="tag">ADB · AI for Safer Roads 2026 · Thailand &amp; Maharashtra (India)</div>
+</div></header>
+
+<section><div class="wrap">
+ <h2>The result in four numbers</h2>
+ <div class="nums">
+  <div class="num"><b>14,711</b><span>road segments scored on Safe-System survivable speed</span></div>
+  <div class="num"><b>5,973</b><span>operate &gt;30 km/h above a survivable speed (Critical)</span></div>
+  <div class="num"><b>4,017</b><span>fast segments beside a school or market (median ~52% pedestrian fatality risk)</span></div>
+  <div class="num"><b>~13–14×</b><span>benefit-cost of the matching iRAP-India interventions</span></div>
+ </div>
+ <p style="color:var(--mut);font-size:14px">The headline is not that drivers speed, on the priority corridors they often travel below the limit. It is that <b>the limit itself is set for a road that no longer exists</b>: a bypass posted at highway speed that informal traffic and roadside development have grown into.</p>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Open the decision tool</h2>
+ <div class="grid">
+  <a class="card" href="output/priority_map_THA.html"><h3>Thailand · where to invest first →</h3><p>Interactive map, coloured by what the fix costs. Click any segment for its decision card: the misalignment, why the limit is flagged, the recommended intervention and the return.</p></a>
+  <a class="card" href="output/priority_map_MAH.html"><h3>Maharashtra · where to invest first →</h3><p>Same, for the Indian network. Green = near-zero-cost quick wins (just re-set the limit); red = needs physical protection.</p></a>
+  <a class="card" href="output/corridor_map.html"><h3>Investment corridors · where to fund first →</h3><p>Flagged segments rolled into fundable, named corridors. The top 20% carry ~76% of the avoidable harm. Click any corridor for its costed action and a coordinate to inspect.</p></a>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>Worked example &amp; method</h2>
+ <div class="grid">
+  <a class="card" href="PILOT_CORRIDOR.html"><h3>Pilot dossier: Katraj–Dehu Bypass →</h3><p>One corridor, fully worked: posted at highway speed though operating speeds run below it, auto-rickshaws and unhelmeted riders photographed mixing on it, a costed, decision-ready intervention.</p></a>
+  <a class="card" href="FINDINGS.docx"><h3>Findings summary (≤5 pp) →</h3><p>The full diagnosis, investment case, and an unusually candid section on what the model does and does not claim.</p></a>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <h2>What makes it trustworthy</h2>
+ <ul class="lean">
+  <li><b>We audited our own model</b> and rebuilt it where the data did not support it (12 documented fixes).</li>
+  <li><b>We automated iRAP-style road-condition coding</b> with a vision model, validated at <b>90% agreement</b> with blind human rating, and used it to quantify our own threshold's weakness rather than hide it.</li>
+  <li><b>Ground-truthed against street imagery</b>, blind and against controls (79% agreement); the model's "safe" calls are reliable.</li>
+  <li><b>Honest about the invisible fleet</b>: informal three-wheelers and unhelmeted riders the probe data cannot see, so our scores on those corridors are a conservative lower bound.</li>
+ </ul>
+</div></section>
+
+<footer><div class="wrap">
+ Transparent, rule-based, country-agnostic. Network data © OpenStreetMap contributors, Overture Maps Foundation; street imagery © Mapillary contributors (CC&nbsp;BY-SA). Challenge data held confidential under FDUA. Method: <code>METHODOLOGY.md</code> · Sources: <code>SOURCES.md</code> · Verification: <code>STREETVIEW_VERIFICATION.md</code>.
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,145 @@
+{
+  "note": "10-province extremes test; death rates 2022 per 100k (ThaiRSC via Pop Health Metrics 2026)",
+  "provinces": [
+    {
+      "province": "RAYONG",
+      "death_rate_2022": 48.58,
+      "group": "high",
+      "n_seg": 157,
+      "pct_critical": 52.2,
+      "pct_priority1": 6.4,
+      "mean_score": 39.4,
+      "mean_oper_over": 30.8
+    },
+    {
+      "province": "SARABURI",
+      "death_rate_2022": 43.17,
+      "group": "high",
+      "n_seg": 142,
+      "pct_critical": 43.0,
+      "pct_priority1": 4.2,
+      "mean_score": 36.1,
+      "mean_oper_over": 24.1
+    },
+    {
+      "province": "PHRA NAKHON SI AYUTTHAYA",
+      "death_rate_2022": 39.85,
+      "group": "high",
+      "n_seg": 195,
+      "pct_critical": 45.1,
+      "pct_priority1": 6.2,
+      "mean_score": 37.9,
+      "mean_oper_over": 26.7
+    },
+    {
+      "province": "TRAT",
+      "death_rate_2022": 37.66,
+      "group": "high",
+      "n_seg": 58,
+      "pct_critical": 39.7,
+      "pct_priority1": 0.0,
+      "mean_score": 37.6,
+      "mean_oper_over": 27.2
+    },
+    {
+      "province": "CHON BURI",
+      "death_rate_2022": 37.13,
+      "group": "high",
+      "n_seg": 345,
+      "pct_critical": 32.8,
+      "pct_priority1": 4.3,
+      "mean_score": 34.7,
+      "mean_oper_over": 21.7
+    },
+    {
+      "province": "YALA",
+      "death_rate_2022": 10.88,
+      "group": "low",
+      "n_seg": 99,
+      "pct_critical": 36.4,
+      "pct_priority1": 4.0,
+      "mean_score": 33.2,
+      "mean_oper_over": 17.0
+    },
+    {
+      "province": "PATTANI",
+      "death_rate_2022": 11.1,
+      "group": "low",
+      "n_seg": 116,
+      "pct_critical": 60.3,
+      "pct_priority1": 6.9,
+      "mean_score": 38.5,
+      "mean_oper_over": 29.4
+    },
+    {
+      "province": "NAKHON PHANOM",
+      "death_rate_2022": 12.55,
+      "group": "low",
+      "n_seg": 77,
+      "pct_critical": 57.1,
+      "pct_priority1": 9.1,
+      "mean_score": 43.7,
+      "mean_oper_over": 35.6
+    },
+    {
+      "province": "NARATHIWAT",
+      "death_rate_2022": 12.84,
+      "group": "low",
+      "n_seg": 80,
+      "pct_critical": 53.8,
+      "pct_priority1": 11.2,
+      "mean_score": 36.0,
+      "mean_oper_over": 25.4
+    },
+    {
+      "province": "KALASIN",
+      "death_rate_2022": 13.74,
+      "group": "low",
+      "n_seg": 107,
+      "pct_critical": 66.4,
+      "pct_priority1": 11.2,
+      "mean_score": 46.0,
+      "mean_oper_over": 38.7
+    }
+  ],
+  "correlations": {
+    "pct_critical": {
+      "spearman_rho": -0.212,
+      "p_value": 0.5563
+    },
+    "pct_priority1": {
+      "spearman_rho": -0.231,
+      "p_value": 0.5208
+    },
+    "mean_score": {
+      "spearman_rho": 0.152,
+      "p_value": 0.6761
+    },
+    "mean_oper_over": {
+      "spearman_rho": 0.079,
+      "p_value": 0.8287
+    }
+  },
+  "group_contrast": {
+    "pct_critical": {
+      "high5_mean": 42.6,
+      "low5_mean": 54.8,
+      "ratio": 0.78
+    },
+    "pct_priority1": {
+      "high5_mean": 4.2,
+      "low5_mean": 8.5,
+      "ratio": 0.5
+    },
+    "mean_score": {
+      "high5_mean": 37.1,
+      "low5_mean": 39.5,
+      "ratio": 0.94
+    },
+    "mean_oper_over": {
+      "high5_mean": 26.1,
+      "low5_mean": 29.2,
+      "ratio": 0.89
+    }
+  }
+}

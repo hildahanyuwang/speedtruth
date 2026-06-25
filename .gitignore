@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.DS_Store
+
+# FDUA: NEVER commit raw challenge data or any per-segment derived table that
+# could reconstruct raw probe values (posted limit, P85, distributions, counts).
+*.geojson
+*.gpkg
+*.xlsx
+*.pdf
+*.zip
+# per-segment derived tables (carry raw limit/P85/coords) — keep local only
+blindtest_key.json
+blindtest_results.json
+roadaudit_key.json
+roadaudit_results.json
+cv_labels*.json
+cv_validation*.json
+cv_manifest*.json
+# (aggregate-only summaries are allowed: cv_audit_summary.json, scoring_cv_summary.json,
+#  validation_maharashtra.csv = district-level aggregates)
+meta.json
+cv_validation_sonnet.json
+streetview_shortlist.md

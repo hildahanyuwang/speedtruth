@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SpeedTruth Findings</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SpeedTruth Findings</h1>
+</header>
+<h1 id="speedtruth-findings-summary">SpeedTruth, Findings Summary</h1>
+<p><strong>Identifying where posted speed limits are misaligned with
+road conditions across Asia-Pacific, and the governance failures behind
+them.</strong> <em>ADB AI for Safer Roads Innovation Challenge 2026 ·
+Thailand &amp; Maharashtra (India)</em></p>
+<hr />
+<h2 id="executive-summary">Executive summary</h2>
+<p>We scored <strong>14,711 road segments</strong> against <strong>Safe
+System survivable speeds</strong> with a transparent, rule-based model,
+and then did something a probe-and-POI method cannot: <strong>we read
+each road’s actual condition from street imagery with a vision model and
+fed it back into the score.</strong> That layer corrects the model in
+both directions and <strong>surfaces 39 dangerous, pedestrian-mixed
+roads that carry no school or market POI at all</strong>, roads a
+posted-limit or POI-proximity method (including the data provider’s own
+credibility-index approach) <strong>structurally cannot detect</strong>
+(§6; the classifier’s reads are validated <em>independently</em> against
+functional road class). Each is verifiable in imagery a ministry can
+open itself. That is the genuinely new capability here; the volume
+findings below quantify the problem it sits inside:</p>
+<ul>
+<li>On an <strong>absolute, cross-country severity scale</strong>,
+<strong>5,973 segments operate more than 30 km/h above the speed a VRU
+can survive</strong> (Thailand 5,760; Maharashtra 213). This absolute
+lens, not a relative “top-10%” ranking, is what lets a regional bank
+compare need across countries, and it shows Thailand’s network running
+far harder against survivable limits than Maharashtra’s.</li>
+<li><strong>4,017 segments carry a school or market within 150 m yet
+operate at a median P85 of ~78 km/h</strong>, implying a median
+pedestrian fatality risk of ~52% in a crash versus ~1.5% at the
+survivable 30 km/h. By Safe System doctrine these limits are set above
+the survivable speed, a limit-setting question, not an enforcement
+one.</li>
+<li>The road users ADB prioritises most, <strong>powered two- and
+three-wheeler riders (62-74% of ASEAN deaths) and the informal
+“invisible fleet” of auto-rickshaws, modified and human-powered
+vehicles, are systematically under-represented in probe data</strong>,
+so our scores on those segments are a conservative lower bound on real
+risk. We treat this openly rather than hiding it.</li>
+</ul>
+<p><strong>Recommendation:</strong> treat limit misalignment as a
+governance-maintenance failure; prioritise the most severe segments,
+starting with school/market and vulnerable-traffic corridors; and
+institute a standing limit-review mechanism tied to operating-speed
+monitoring, for which this pipeline, with its imagery-based
+road-condition check, is a ready, low-cost, scalable tool.</p>
+<hr />
+<h2 id="the-problem-misalignment-as-governance-failure">1. The problem:
+misalignment as governance failure</h2>
+<p>A posted limit inconsistent with a road’s function and its VRU
+exposure is evidence that the limit-review mechanism has fallen behind
+the road, through reclassification without limit update, upgrades
+without revision, or limits that never reflected the pedestrians and
+riders present. SpeedTruth finds where this has happened and explains
+why, in terms a transport ministry can act on.</p>
+<p>This is a deliberately different question from the standard
+speed-safety KPI. Compliance metrics, the share of drivers within the
+limit, <strong>silently presume the posted limit is itself
+safe</strong>; SpeedTruth tests that presumption directly. ADB and the
+dataset’s own provider make the same case in their joint analysis: the
+aim is to see <em>“how roads function in practice rather than how they
+were intended to operate”</em> and to focus resources on <em>“locations
+where data suggests the greatest mismatch”</em> (Leather, Gautam &amp;
+Owen, <em>Rethinking Speed Limits with AI</em>, 2026).</p>
+<h2 id="approach-probe-based-safe-system-anchored-transparent">2.
+Approach: probe-based, Safe System anchored, transparent</h2>
+<p>Each segment’s safe speed is set from its VRU exposure
+(pedestrian/school-market 30, urban 50, rural 70, motorway 110 km/h, per
+WHO and World Bank GRSF). The Speed Safety Score (0-100) combines three
+independent, transparent factors: how far <strong>operating speed
+(P85)</strong> exceeds the safe speed, how far the <strong>posted
+limit</strong> exceeds it, and <strong>VRU exposure</strong> from
+OpenStreetMap. We use a <strong>rule-based composite, not a black-box
+model</strong>, so officials can interrogate every step. WHO endorses
+exactly this use of the 85th-percentile speed, <em>“an excellent way of
+identifying when speed limits and road design do not match”</em> (WHO,
+<em>Speed Management</em>, 2023), while cautioning, as we do, that it
+must never <em>set</em> limits. We also follow the challenge’s own
+most-important rule: <strong>we never recommend lowering a limit from a
+high operating speed alone</strong> (which could be dangerous on a road
+engineered for that speed). Instead we read each road’s actual design
+and condition from its <code>StreetImageLink</code> imagery before
+flagging, so a flag means the limit is mismatched to what the road
+<em>is</em>, not merely to how fast people drive.</p>
+<p>We report <strong>two axes</strong> (method and validation in
+<code>METHODOLOGY.md</code>): an <strong>absolute Safe-System
+severity</strong> (Critical/Serious/Marginal, from km/h over the
+survivable speed, comparable across countries) and a
+<strong>within-country priority</strong> percentile for each ministry to
+sequence its own network. The three steps, assessing safe speed,
+identifying VRU risk, and a policy-ready score with a map, map directly
+onto the challenge’s three core capabilities.</p>
+<h2 id="key-findings">3. Key findings</h2>
+<p><strong>3.1 Severity is concentrated and cross-country
+comparable.</strong> 5,973 segments are <strong>Critical</strong>
+(&gt;30 km/h over survivable speed); Thailand’s network (5,760) runs far
+harder against survivable limits than Maharashtra’s (213), a contrast
+the within-country ranking alone would hide. Notably, <strong>1,192
+segments are absolutely Critical yet rank only “Compliant” within their
+own country</strong>, high-severity roads a purely relative ranking
+would miss.</p>
+<p><strong>3.2 The limit, by Safe System standard, is set above the
+survivable speed.</strong> Among the highest-priority segments,
+overwhelmingly roads passing schools or markets, the posted limit
+exceeds the 30 km/h a pedestrian can survive. We state this as
+<strong>Safe System doctrine, not a surprise discovery</strong>: where
+pedestrians mix with traffic, a limit above 30 is by definition
+permissive, and speed management here is primarily a policy-setting
+task, not enforcement. Operating speed exceeds the <em>posted</em> limit
+on roughly half of these segments, so both the limit and its enforcement
+need attention, but the limit is the larger lever.</p>
+<p><strong>3.3 High-speed roads run straight past schools and
+markets.</strong> 4,017 segments sit within 150 m of a school or market
+with a median P85 of ~78 km/h, implying a median pedestrian fatality
+risk of ~52% in a crash, versus ~1.5% at 30 km/h (Rosén &amp; Sander
+2009; indicative, see §6). <em>(Ground-truthed by a <strong>blinded test
+against controls</strong>: 79% agreement on 24 segments rated without
+seeing the score, with the model’s “safe” calls reliable;
+<code>STREETVIEW_VERIFICATION.md</code>.)</em></p>
+<p><strong>3.4 The vulnerable mix, including the “invisible
+fleet”.</strong> Powered two- and three-wheeler riders dominate the
+toll: <strong>two-wheelers alone are ~74% of India’s registered fleet
+and 44.5% of its road deaths</strong> (in Thailand, motorcycles are ~52%
+of the fleet and <strong>84%</strong> of deaths). Helmet-wearing on the
+Maharashtra segments is only <strong>15-24%</strong> (versus 67-79% in
+Thailand), so the same crash is far more lethal there (reported as a
+stratum-level lethality <em>overlay</em>, not a false per-segment
+factor). Crucially, the most vulnerable users are the <strong>least
+visible to the data</strong>: auto-rickshaws, jury-rigged and
+engine-retrofitted vehicles, and human-powered rickshaws do not appear
+in fleet-based probe speeds, motorcycle-only helmet data, or fully in
+OSM. They cannot be <em>measured</em> from this data (we tested and
+rejected a speed-dispersion proxy), but they can be
+<strong>seen</strong>: street-view review of flagged Maharashtra
+segments shows <strong>auto-rickshaws sharing highway-speed carriageways
+with motorcycles, pedestrians and trucks</strong>
+(<code>STREETVIEW_VERIFICATION.md</code> Part C). Because these
+higher-risk users are under-counted, our scores on those corridors
+<strong>understate</strong> true risk, a gap a probe-only method misses
+entirely.</p>
+<p><strong>3.5 Independent corroboration.</strong> iRAP/ThaiRAP rate
+only <strong>19% of Thai roads 3-star+ for pedestrians</strong>;
+SpeedTruth, from limit-vs-operating-speed, reaches the same systemic
+conclusion, raising confidence in both.</p>
+<h2 id="from-analysis-to-an-investment-case">4. From analysis to an
+investment case</h2>
+<p>A development bank asks not only <em>where</em> the limit is wrong
+but <em>where to invest first, for what return</em>. Using the
+<strong>Nilsson/Elvik Power Model</strong> (the speed-injury
+relationship WHO and GRSF cite), bringing operating speeds down to the
+Safe System speed yields large killed-and-seriously-injured (KSI)
+reductions; weighted by traffic exposure and divided by intervention
+cost, this turns the red map into a <strong>ranked investment
+work-list</strong>
+(<code>output/intervention_priorities.geojson</code>):</p>
+<ul>
+<li><strong>The top 20% of segments hold ~70% of the avoidable-KSI
+potential</strong>, targeted investment, not blanket spending, captures
+most of the benefit.</li>
+<li><strong>Flagged segments roll up into fundable corridors.</strong>
+The 3,679 flagged segments collapse into 2,869 contiguous, same-road
+corridors (<code>CORRIDORS.md</code>; map
+<code>output/corridor_map.html</code>); the <strong>top 20% of corridors
+carry ~76% of the avoidable-harm benefit</strong>, so a bank funds a
+short-list of named routes (Phahonyothin, Mittraphap, Rama II), not a
+segment spreadsheet.</li>
+<li>The <strong>return</strong> rests on <strong>iRAP’s own Indian
+deployments</strong>, not our arithmetic: pedestrian footpaths and
+crossings there returned <strong>benefit-cost ratios of ~13-14</strong>
+(iRAP India Four States, 2011), and many priority segments need only a
+re-set limit (near-zero cost), so the first wins are immediate.</li>
+<li>We deliberately <strong>do not</strong> print a single
+“lives/dollars saved” figure: with no segment-level crash data, any such
+number would be a borrowed-parameter illustration, not evidence. The
+honest magnitude statement is <em>directional</em>, these corridors
+carry a large share of avoidable, speed-related harm at intervention
+costs the iRAP precedent shows are recovered many times over; the
+absolute total is a refinement-stage estimate once an outcome layer
+exists.</li>
+</ul>
+<h2 id="recommended-interventions-aligned-with-grsf-what-works">5.
+Recommended interventions (aligned with GRSF “what works”)</h2>
+<ol type="1">
+<li><strong>Immediate:</strong> review the limits on the most severe
+school/market and vulnerable-traffic corridors. Where a road must stay
+fast, the Safe System answer is <strong>infrastructure</strong>
+(separated footways and motorcycle lanes, safe crossings, service
+roads), the interventions GRSF evidences, not a number alone.</li>
+<li><strong>Institutional:</strong> establish a <strong>standing
+limit-review mechanism</strong> that sets limits against Safe System
+speeds and VRU exposure, is triggered by reclassification and upgrades,
+and closes the loop with operating-speed monitoring.</li>
+<li><strong>Data:</strong> adopt continuous probe-based monitoring (as
+here) so misalignment is caught as it emerges, and pair it with field
+counts of informal vehicles, which probe data cannot see.</li>
+</ol>
+<h2 id="validity-and-honest-limitations-direction-of-bias-stated">6.
+Validity and honest limitations (direction of bias stated)</h2>
+<p>We audited our own model and report what it does <strong>not</strong>
+do, with the direction each bias pushes:</p>
+<ul>
+<li><strong>Coverage.</strong> Only segments with valid probe data are
+scored, about <strong>a fifth of the full network</strong>. The unscored
+remainder is disproportionately the local and rural roads where
+pedestrians and the informal fleet are most exposed, so network-wide
+risk is <strong>under-covered, not over-stated</strong>.</li>
+<li><strong>Invisible fleet (§3.4).</strong> Three-wheelers, modified
+and human-powered vehicles are absent from probe, helmet and OSM layers
+→ scores on affected segments are a <strong>conservative lower
+bound</strong>.</li>
+<li><strong>Helmet data</strong> is a <strong>two-value urban/rural
+stratum constant</strong>, not a segment measurement; we therefore use
+it as a reported lethality <em>context</em>, not a scoring factor.</li>
+<li><strong>Grade separation.</strong> 1,163 fast trunk segments may be
+access-controlled; lacking OSM access tags we <strong>flag rather than
+reclassify</strong> them, so as not to hide genuinely dangerous
+undivided highways. Coordinate-level road-attribute confirmation is
+reserved for the refinement stage.</li>
+<li><strong>We took up the challenge’s own invitation to improve the
+<code>LandUse</code>/<code>SpeedLimit</code> classifications by
+cross-referencing the <code>StreetImageLink</code>.</strong> A vision
+model reading street images (validated <em>independently</em> against
+functional road class; 90% consistency vs a human rating) finds
+<strong>96% of safe=30 priority segments are actually faster
+roads</strong>, the OSM proxy over-states danger ≈2×, though <strong>84%
+remain genuinely misaligned</strong> even at the corrected threshold.
+Applied across <strong>3,537 segments</strong> (24% of the network; v3),
+it corrects the model <strong>both ways</strong>: demoting over-flagged
+Priority-1 <em>and</em> promoting <strong>39 dangerous roads a POI
+method cannot find</strong> (<code>STREETVIEW_VERIFICATION.md</code>
+Parts D–F).</li>
+<li><strong>Exposure cross-checked with open population data
+(FAQ-suggested).</strong> WorldPop 2020 density confirms the OSM
+exposure signal, segments we flag as exposed sit in denser population
+(Spearman +0.32 Thailand, +0.46 Maharashtra), and <strong>~1,159
+high-population segments carry no OSM POI at all</strong>, so the OSM
+exposure layer is a genuine lower bound, not a ceiling
+(<code>src/worldpop_exposure.py</code>).</li>
+<li><strong>No crash validation.</strong> No crash data was provided
+(shared across the challenge, by design, sparse regional crash data is
+<em>why</em> a proactive tool is needed). Tested against Maharashtra’s
+police black-spot register, our proactive index does
+<strong>not</strong> converge with reactive crash clusters (near-zero
+rank correlation once exposure is controlled), expected, since black
+spots record where crashes <em>already</em> clustered. A second external
+check, against <em>independently published provincial road-death
+rates</em> (ThaiRSC 2022, 10-province extremes,
+<code>src/validate_thairsc.py</code>), likewise does
+<strong>not</strong> converge (Spearman ≈ 0): the highest-death
+provinces are high-volume motorway and industrial corridors whose limits
+suit the road design, a different problem from limit-misalignment. Both
+nulls sharpen what the score measures, limit-appropriateness, not
+exposure-driven crash volume. Confidence rests instead on Safe System
+consistency, <strong>sensitivity analysis (Priority-1 stable at Jaccard
+0.82-0.95 under ±30% weights, and robust to probe sample density, the
+FAQ’s specific concern: the score correlates <em>positively</em> with
+<code>SampleSizeTotal</code> and flagged segments are
+<em>better</em>-sampled than average, so the findings are not a
+low-sample artefact,
+<code>src/sensitivity_samplesize.py</code>)</strong>, iRAP convergence,
+and the blind street-view tests. <strong>We pre-commit the
+falsifiability test</strong> (to convert “proactive” from a shield into
+a hypothesis): in the refinement stage we will link the priority ranking
+to a <em>forward-looking</em> outcome proxy, corridor-level trauma
+admissions or insurance claims, named in advance, and a null there,
+unlike the reactive black-spot test, <em>would</em> count against the
+tool.</li>
+<li>The posted-limit and fatality-curve inputs are themselves estimates
+(commercial probe data unvalidated limits; Rosén car-occupant,
+high-income calibration that <strong>understates</strong> severity for
+trucks, older fleets and the riders here). The score <strong>flags
+segments for review; it does not assert a limit is definitively
+wrong.</strong></li>
+</ul>
+<h2 id="scalability-and-institutionalisation">7. Scalability and
+institutionalisation</h2>
+<p>The pipeline is country-agnostic, it already runs on two structurally
+different datasets (Thailand and Maharashtra), using only standard
+challenge data plus open OSM and street imagery. Unlike a manual
+road-safety audit it covers a <strong>whole network in days at near-zero
+survey cost</strong> and re-runs as networks change. An honest, staged
+path to actual ministry use, and what is still missing, is set out in
+<code>ADOPTION.md</code>.</p>
+<hr />
+<p><em>Sources and verification: <code>SOURCES.md</code>. Method, model
+audit and evaluation: <code>METHODOLOGY.md</code>. Code:
+<code>src/</code>. Network data © OpenStreetMap contributors, Overture
+Maps Foundation.</em></p>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "THA": {
+    "spearman_pop_vs_vru_per_km": 0.318,
+    "pop_median_schoolmarket": 530.4,
+    "pop_median_no_schoolmarket": 480.1,
+    "pct_segments_no_osm_vru": 50.0,
+    "n_no_osm_but_high_pop": 923,
+    "pop_q75": 1254.9,
+    "p1_share_above_median_pop": 0.613
+  },
+  "MAH": {
+    "spearman_pop_vs_vru_per_km": 0.458,
+    "pop_median_schoolmarket": 1624.5,
+    "pop_median_no_schoolmarket": 466.4,
+    "pct_segments_no_osm_vru": 54.0,
+    "n_no_osm_but_high_pop": 236,
+    "pop_q75": 1968.8,
+    "p1_share_above_median_pop": 0.677
+  }
+}

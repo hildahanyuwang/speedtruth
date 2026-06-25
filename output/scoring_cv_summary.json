@@ -1,0 +1,11 @@
+{
+  "cv_coverage_pct": 0.24,
+  "cv_covered": 3537,
+  "total": 14711,
+  "threshold_raised_pct": 0.589,
+  "threshold_lowered_pct": 0.078,
+  "mean_safe_v2": 47.3,
+  "mean_safe_v3": 65.7,
+  "p1_demoted": 545,
+  "p1_promoted": 545
+}

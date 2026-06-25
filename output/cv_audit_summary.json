@@ -1,0 +1,27 @@
+{
+  "model": "claude-haiku-4-5-20251001",
+  "n_classified": 170,
+  "n_failed": 0,
+  "validation_vs_human_blind": {
+    "agree": 28,
+    "total": 31,
+    "pct": 0.903
+  },
+  "A_safe30_P1": {
+    "n": 120,
+    "over_assigned_pct": 0.958,
+    "implied_speed_mean": 63.5,
+    "still_misaligned_at_corrected_pct": 0.842,
+    "becomes_ok_pct": 0.1,
+    "oper_excess_old_safe30": 65.0,
+    "oper_excess_cv_corrected": 33.2
+  },
+  "B_gradesep": {
+    "n": 25,
+    "confirmed_fast_pct": 1.0
+  },
+  "C_control": {
+    "n": 25,
+    "confirmed_fast_pct": 0.96
+  }
+}
