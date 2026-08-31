@@ -20,11 +20,11 @@ from scoring import WEIGHTS, _norm_region, severity_band
 LABELS = "output/cv_labels_full.json"
 
 def reassign_tiers(df, score_col):
-    out = pd.Series("Compliant", index=df.index)
+    out = pd.Series("Lower priority", index=df.index)
     for _, sub in df.groupby("region"):
         r = df.loc[sub.index, score_col].rank(pct=True)
-        t = pd.Series("Compliant", index=sub.index)
-        t[r >= 0.50] = "Monitor"; t[r >= 0.75] = "Priority 2"; t[r >= 0.90] = "Priority 1"
+        t = pd.Series("Lower priority", index=sub.index)
+        t[r >= 0.50] = "Watch"; t[r >= 0.75] = "Priority 2"; t[r >= 0.90] = "Priority 1"
         out.loc[sub.index] = t
     return out
 
@@ -63,8 +63,8 @@ def main():
 
     print("\n--- Tier change v2 -> v3 (whole network; non-CV segments unchanged) ---")
     print(pd.crosstab(g.tier, g.tier_v3).reindex(
-        index=["Priority 1","Priority 2","Monitor","Compliant"],
-        columns=["Priority 1","Priority 2","Monitor","Compliant"]).to_string())
+        index=["Priority 1","Priority 2","Watch","Lower priority"],
+        columns=["Priority 1","Priority 2","Watch","Lower priority"]).to_string())
     demoted = ((g.tier=="Priority 1") & (g.tier_v3!="Priority 1")).sum()
     promoted = ((g.tier!="Priority 1") & (g.tier_v3=="Priority 1")).sum()
     print(f"\n  Priority 1 demoted (over-flag removed): {demoted} | promoted (under-flag caught): {promoted}")

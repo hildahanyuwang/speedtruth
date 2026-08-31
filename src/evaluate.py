@@ -18,7 +18,7 @@ def jaccard(a, b):
 
 def internal_consistency(g):
     print("\n[1] Internal consistency, mean factor by tier (expect monotonic ↑ toward Priority 1)")
-    order = ["Compliant", "Monitor", "Priority 2", "Priority 1"]
+    order = ["Lower priority", "Watch", "Priority 2", "Priority 1"]
     cols = ["oper_excess", "limit_excess", "vru_per_km", "dev_gap", "speed_safety_score"]
     t = g.groupby("tier")[cols].mean().reindex(order).round(2)
     print(t.to_string())

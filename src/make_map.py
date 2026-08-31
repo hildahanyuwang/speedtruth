@@ -8,8 +8,8 @@ from folium.features import GeoJsonTooltip
 import geopandas as gpd
 
 TIER_COLOR = {"Priority 1": "#c0144c", "Priority 2": "#f07814",
-              "Monitor": "#e8b800", "Compliant": "#9fb89f"}
-TIER_WEIGHT = {"Priority 1": 4, "Priority 2": 3, "Monitor": 2, "Compliant": 1}
+              "Watch": "#e8b800", "Lower priority": "#9fb89f"}
+TIER_WEIGHT = {"Priority 1": 4, "Priority 2": 3, "Watch": 2, "Lower priority": 1}
 CENTER = {"THA": (15.0, 101.5, 6), "MAH": (19.0, 76.0, 7)}
 TITLE = {"THA": "Thailand", "MAH": "Maharashtra (India)"}
 
@@ -30,7 +30,7 @@ def build_map(region):
     m = folium.Map(location=[lat, lon], zoom_start=z, tiles="CartoDB positron")
 
     # draw low→high so Priority sits on top; separate layers for toggling
-    for tier in ["Compliant", "Monitor", "Priority 2", "Priority 1"]:
+    for tier in ["Lower priority", "Watch", "Priority 2", "Priority 1"]:
         sub = g[g["tier"] == tier]
         if not len(sub):
             continue
@@ -38,7 +38,7 @@ def build_map(region):
         folium.GeoJson(
             sub.__geo_interface__,
             name=f"{tier} ({len(sub):,})",
-            show=(tier != "Compliant"),
+            show=(tier != "Lower priority"),
             style_function=lambda x, c=color, w=weight: {
                 "color": c, "weight": w, "opacity": 0.85},
             tooltip=GeoJsonTooltip(
@@ -54,8 +54,8 @@ def build_map(region):
       <b>Speed Safety Score</b><br>
       <span style="color:#c0144c">&#9608;</span> Priority 1, review now<br>
       <span style="color:#f07814">&#9608;</span> Priority 2, schedule review<br>
-      <span style="color:#e8b800">&#9608;</span> Monitor<br>
-      <span style="color:#9fb89f">&#9608;</span> Compliant</div>"""
+      <span style="color:#e8b800">&#9608;</span> Watch<br>
+      <span style="color:#9fb89f">&#9608;</span> Lower priority</div>"""
     title = f"""<div style="position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:9999;
       background:white;padding:6px 18px;border-radius:6px;font:bold 16px sans-serif;border:1px solid #999">
       SpeedTruth, {TITLE[region]} · Speed-Unsafe Segments</div>"""

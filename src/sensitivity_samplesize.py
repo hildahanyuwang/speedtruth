@@ -30,12 +30,12 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-PCT_BREAKS = [(0.50, "Monitor"), (0.75, "Priority 2"), (0.90, "Priority 1")]  # within-region, low->high
+PCT_BREAKS = [(0.50, "Watch"), (0.75, "Priority 2"), (0.90, "Priority 1")]  # within-region, low->high
 
 def rerank(sub):
     """Re-assign within-region tier by score percentile on a (filtered) subset."""
     r = sub["speed_safety_score"].rank(pct=True)
-    tier = pd.Series("Compliant", index=sub.index)
+    tier = pd.Series("Lower priority", index=sub.index)
     for q, name in PCT_BREAKS:
         tier[r >= q] = name
     return tier

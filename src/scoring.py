@@ -76,8 +76,8 @@ def severity_band(oper_over):
 # within_region: by within-region score percentile (removes regional bias, matches the
 #   decision logic of each transport ministry prioritising within its own network)
 TIER_MODE = "within_region"
-ABS_BREAKS = [(60, "Priority 1"), (40, "Priority 2"), (20, "Monitor")]
-PCT_BREAKS = [(0.50, "Monitor"), (0.75, "Priority 2"), (0.90, "Priority 1")]  # low->high, cumulative
+ABS_BREAKS = [(60, "Priority 1"), (40, "Priority 2"), (20, "Watch")]
+PCT_BREAKS = [(0.50, "Watch"), (0.75, "Priority 2"), (0.90, "Priority 1")]  # low->high, cumulative
 
 def assign_tiers(df, mode=TIER_MODE):
     if mode == "absolute":
@@ -85,13 +85,13 @@ def assign_tiers(df, mode=TIER_MODE):
             for thr, name in ABS_BREAKS:
                 if s >= thr:
                     return name
-            return "Compliant"
+            return "Lower priority"
         return df["speed_safety_score"].apply(t)
     # within_region: tier by score percentile within each region
-    out = pd.Series("Compliant", index=df.index)
+    out = pd.Series("Lower priority", index=df.index)
     for _, sub in df.groupby("region"):
         r = sub["speed_safety_score"].rank(pct=True)
-        tier = pd.Series("Compliant", index=sub.index)
+        tier = pd.Series("Lower priority", index=sub.index)
         for q, name in PCT_BREAKS:
             tier[r >= q] = name
         out.loc[sub.index] = tier
@@ -169,7 +169,7 @@ if __name__ == "__main__":
     print(g["speed_safety_score"].describe(percentiles=[.5,.75,.9,.95]).round(1).to_string())
     print("\n--- Tier counts (by region) ---")
     print(pd.crosstab(g["tier"], g["region"]).reindex(
-        ["Priority 1","Priority 2","Monitor","Compliant"]).to_string())
+        ["Priority 1","Priority 2","Watch","Lower priority"]).to_string())
     print("\n--- Priority 1 share by region ---")
     for r in ["THA","MAH"]:
         sub = g[g["region"]==r]
