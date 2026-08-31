@@ -50,6 +50,7 @@ where both are known.
 |---|---|---|---|
 | `IN_MotorVehiclesAct_1988.pdf` | **Motor Vehicles Act, 1988 (Act 59 of 1988)**. s.112 "Limits of speed" at pp. 65–66 | `MotorVehiclesAct_1988_IndiaCode_a1988-59.pdf` | indiacode.nic.in/bitstream/123456789/9460/1/a1988-59.pdf |
 | `IN_MH_MVDept_Manual_PartIII.pdf` | **Government of Maharashtra, Motor Vehicles Department Manual, Part III**, §8.1 "Limits of speed (MVA S 112)" | `MH_MVDept_Manual_PartIII_ControlOfTraffic.pdf` | transport.maharashtra.gov.in/Site/Upload/GR/CONTROL_OF_TRAFFIC.pdf |
+| `IN_SO1522E_MaxSpeed_2018.pdf` | **S.O. 1522(E)**, Ministry of Road Transport and Highways, dated 6 April 2018, fixing maximum speeds by road class and vehicle category under the proviso to s.112(1). Supersedes S.O. 1997(E) of 5 August 2014. File no. RT-11028/07/2017-MVL. *Gazette of India*, Extraordinary, Part II, Section 3, Sub-section (ii), No. 1377. Clause 2 provides that no cognizance is taken under s.183 if the detected speed is within 5 per cent of the maximum | `184582.pdf` | egazette.nic.in |
 | `IN_Mumbai_AddlCP_CoastalRoad_Notif187_2026.pdf` | **Notification No. 187/Addl CP/Traffic/Permanent/2026**, Additional Commissioner of Police (Traffic), Mumbai, 25 August 2026 (Marathi). Issued under s.115 of the Motor Vehicles Act 1988 and Government of Maharashtra notification MVA 0589/CR-1061/TRA-2 dated 11 May 1990, as amended 27 September 1996 | `202608250000_823227_Costal Road  permanent Notification -187_1.pdf` | trafficpolicemumbai.maharashtra.gov.in |
 
 ## Academic
@@ -64,13 +65,18 @@ where both are known.
 
 | Source | Why not included | Where to verify |
 |---|---|---|
-| **S.O. 1522(E)**, Ministry of Road Transport and Highways, 6 April 2018, fixing maximum speeds by road class and vehicle category under the proviso to s.112(1) | Gazette original could not be retrieved. The table is reproduced verbatim in an official parliamentary answer | Press Information Bureau, "Speed Limit on National Highways", 19 July 2018, pib.gov.in/Pressreleaseshare.aspx?PRID=1539335 |
 | **Speed Variation Analysis**, World Bank, 2019 | Publicly hosted; no redistribution needed | hdl.handle.net/10986/33097 |
 | **Government of Maharashtra notification MVA 0589/CR-1061/TRA-2** (11 May 1990, amended 27 Sep 1996) — the instrument delegating traffic powers to the Mumbai police | Not retrieved. Its number is known only because the Mumbai notification above cites it | Maharashtra Government Gazette |
 
 ---
 
 ## Notes for anyone re-reading these files
+
+**Some of these files will not preview in the browser.** GitHub reports "Unable to render
+code block" for several of them. That is a limitation of the in-page viewer, not a damaged
+file: the gazette PDFs are scans or use embedded subset fonts that the viewer cannot
+handle. **Download the file and it opens normally.** Each entry above also gives the
+official URL, so any item can be checked against the source rather than against this copy.
 
 **Thai gazette PDFs from 2024 do not extract as text.** The 2024 Bangkok order and the
 other 2024 police regulations embed subsetted fonts without a ToUnicode map, so
