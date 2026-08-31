@@ -1,5 +1,13 @@
 # SpeedTruth, Path to Ministry Adoption
 
+> **Terminology note (Phase 2, 2026-08).** This document is the Phase 1 record and its
+> wording is unchanged. Two **priority-tier** labels were renamed for the Phase 2 application:
+> `Monitor` → **`Watch`**, and `Compliant` → **`Lower priority`**. The rename applies to the
+> *within-region priority* axis only. The **severity** axis keeps its own four values
+> (`Critical` / `Serious` / `Marginal` / `Compliant`), where `Compliant` is the correct word:
+> operating speed at or below the survivable speed. Reason for the change, and every other
+> change made since Phase 1, are recorded in `CHANGELOG_PHASE2.md`.
+
 *An honest map of what stands between this submission and a transport ministry using it in practice. We state the gaps openly rather than imply the tool is deployment-ready.*
 
 **Where it is today:** a validated, reproducible, FDUA-compliant analytical pipeline that turns standard probe + open data into a per-segment Speed Safety Score, an interactive decision map, a costed work-list, and an automated imagery-based road-condition check. It is a decision-support prototype, **not yet an operational system**.

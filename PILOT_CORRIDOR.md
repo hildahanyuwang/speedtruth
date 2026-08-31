@@ -16,7 +16,7 @@
 - This is a **governance-maintenance failure**: a bypass posted at highway speed that urban development and informal traffic have since grown into, without the limit being revised.
 
 ## 3. The evidence (this is not inferred, it is photographed)
-- **Street-view review** of four points on the corridor directly shows the conditions (`STREETVIEW_VERIFICATION.md`; images `output/blindtest_images/img_01,10,17,21.jpg`): an **auto-rickshaw mid-carriageway among motorcycles, a truck and pedestrians**, parked two-wheelers, roadside vendors, dust verges and **no pedestrian footpath**, on a road posted at highway speed.
+- **Street-level imagery review** of four points on the corridor directly shows the conditions (`IMAGERY_VERIFICATION.md`; images `output/blindtest_images/img_01,10,17,21.jpg`): an **auto-rickshaw mid-carriageway among motorcycles, a truck and pedestrians**, parked two-wheelers, roadside vendors, dust verges and **no pedestrian footpath**, on a road posted at highway speed.
 - These are exactly the **"invisible fleet"** users (informal three-wheelers, unhelmeted riders) that probe-speed data cannot see, which is why the operating-speed signal alone understates the risk here.
 
 ## 4. Recommended intervention (aligned with GRSF "what works")
@@ -35,4 +35,4 @@
 It combines everything ADB prioritises: a **motorcycle/auto-rickshaw corridor** with very low helmet use, **school and market exposure**, photographed vulnerable mixing, and a **limit that is the lever** (operating speed is already below it, so enforcement alone cannot fix it). It is a textbook case where correcting the *limit*, not chasing the *driver*, saves lives, and where SpeedTruth turns a network-wide scan into a single, costed, actionable decision.
 
 ---
-*Method and validation: `METHODOLOGY.md`. Evidence: `STREETVIEW_VERIFICATION.md`. Sources: `SOURCES.md`.*
+*Method and validation: `METHODOLOGY.md`. Evidence: `IMAGERY_VERIFICATION.md`. Sources: `SOURCES.md`.*

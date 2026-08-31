@@ -174,6 +174,8 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">SpeedTruth Findings</h1>
+<blockquote><p><b>Terminology note (Phase 2, 2026-08).</b> This document is the Phase 1 record and its wording is unchanged. Two <b>priority-tier</b> labels were renamed for the Phase 2 application: <code>Monitor</code> &rarr; <b><code>Watch</code></b>, and <code>Compliant</code> &rarr; <b><code>Lower priority</code></b>. The rename applies to the <i>within-region priority</i> axis only. The <b>severity</b> axis keeps its own four values (<code>Critical</code> / <code>Serious</code> / <code>Marginal</code> / <code>Compliant</code>), where <code>Compliant</code> is the correct word: operating speed at or below the survivable speed. Reason for the change, and every other change made since Phase 1, are recorded in <code>CHANGELOG_PHASE2.md</code>.</p></blockquote>
+
 </header>
 <h1 id="speedtruth-findings-summary">SpeedTruth, Findings Summary</h1>
 <p><strong>Identifying where posted speed limits are misaligned with
@@ -293,7 +295,7 @@ risk of ~52% in a crash, versus ~1.5% at 30 km/h (Rosén &amp; Sander
 2009; indicative, see §6). <em>(Ground-truthed by a <strong>blinded test
 against controls</strong>: 79% agreement on 24 segments rated without
 seeing the score, with the model’s “safe” calls reliable;
-<code>STREETVIEW_VERIFICATION.md</code>.)</em></p>
+<code>IMAGERY_VERIFICATION.md</code>.)</em></p>
 <p><strong>3.4 The vulnerable mix, including the “invisible
 fleet”.</strong> Powered two- and three-wheeler riders dominate the
 toll: <strong>two-wheelers alone are ~74% of India’s registered fleet
@@ -308,10 +310,10 @@ engine-retrofitted vehicles, and human-powered rickshaws do not appear
 in fleet-based probe speeds, motorcycle-only helmet data, or fully in
 OSM. They cannot be <em>measured</em> from this data (we tested and
 rejected a speed-dispersion proxy), but they can be
-<strong>seen</strong>: street-view review of flagged Maharashtra
+<strong>seen</strong>: street-level imagery review of flagged Maharashtra
 segments shows <strong>auto-rickshaws sharing highway-speed carriageways
 with motorcycles, pedestrians and trucks</strong>
-(<code>STREETVIEW_VERIFICATION.md</code> Part C). Because these
+(<code>IMAGERY_VERIFICATION.md</code> Part C). Because these
 higher-risk users are under-counted, our scores on those corridors
 <strong>understate</strong> true risk, a gap a probe-only method misses
 entirely.</p>
@@ -404,7 +406,7 @@ remain genuinely misaligned</strong> even at the corrected threshold.
 Applied across <strong>3,537 segments</strong> (24% of the network; v3),
 it corrects the model <strong>both ways</strong>: demoting over-flagged
 Priority-1 <em>and</em> promoting <strong>39 dangerous roads a POI
-method cannot find</strong> (<code>STREETVIEW_VERIFICATION.md</code>
+method cannot find</strong> (<code>IMAGERY_VERIFICATION.md</code>
 Parts D–F).</li>
 <li><strong>Exposure cross-checked with open population data
 (FAQ-suggested).</strong> WorldPop 2020 density confirms the OSM
@@ -435,7 +437,7 @@ FAQ’s specific concern: the score correlates <em>positively</em> with
 <em>better</em>-sampled than average, so the findings are not a
 low-sample artefact,
 <code>src/sensitivity_samplesize.py</code>)</strong>, iRAP convergence,
-and the blind street-view tests. <strong>We pre-commit the
+and the blind imagery tests. <strong>We pre-commit the
 falsifiability test</strong> (to convert “proactive” from a shield into
 a hypothesis): in the refinement stage we will link the priority ranking
 to a <em>forward-looking</em> outcome proxy, corridor-level trauma

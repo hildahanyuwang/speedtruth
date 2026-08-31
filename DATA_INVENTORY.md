@@ -88,7 +88,7 @@ The two files are **not** the same schema, a harmonization mapping is required b
 
 The briefing (§3) anticipated richer inputs than were actually delivered. **Not present in the provided files:**
 
-- ❌ **Mapillary street-level imagery / ML-identified road features & signs**, only a `StreetImageLink` (Google StreetView lon/lat string) exists. No image features, no sign detections.
+- ❌ **Mapillary street-level imagery / ML-identified road features & signs**, only a `StreetImageLink` (a Google Street View lon/lat string) exists. No image features, no sign detections. We use that field as a coordinate only; the imagery it points to is never ingested, because Google's terms forbid feature extraction. All imagery in this project is pulled from Mapillary.
 - ❌ **Crash / collision history**, none. This removes the briefing's preferred evaluation path ("holdout validation on segments with known crash history"). Evaluation must instead use Safe System threshold logic + internal consistency, or supplement with open crash data if any exists for these regions.
 - ❌ **Contextual VRU layers** (schools, markets, transit stops, population density, land use beyond URBAN/RURAL, powered-two-wheeler indicators). The **VRU Exposure Index** (a core differentiator of the Speed Safety Score) has **no source in the provided data**, it must be built from external open data (e.g. OSM POIs for schools/markets, WorldPop/GHSL for population, OSM for intersection density).
 
