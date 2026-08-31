@@ -164,3 +164,26 @@ All figures are from named primary sources with a confidence note. GRSF/iRAP do 
 **Probe under-representation (structural evidence only, no exact figure):** two-wheeler embedded-telematics penetration is far below cars ("only a few of the largest two-wheeler OEMs offer embedded telematics"); floating-car-data theory notes probes must be uniformly distributed and that developing economies with high PTW shares are "under-researched" (Berg Insight 2025; FCD literature PMC4692405). -> Honest statement: two/three-wheelers are systematically under-represented in fleet-probe data, not "exactly 0%".
 
 **One-line magnitude (citable):** in India two-wheelers are about 74% of the fleet and 44.5% of deaths; in Thailand motorcycles are about 52% of the fleet and 84% of deaths, and these are precisely the users fleet-probe data barely captures.
+
+## 9. Legal instruments: statutes, ministerial regulations and police notifications (added 2026-08-31) ✅
+
+**All originals are committed to `sources/legal/`** with an index giving, for each item, the
+gazette citation, the official URL, the original download filename and the retrieval date.
+See `sources/legal/README.md`. Everything below was read in the original text, not from a
+secondary source; where a document is in Thai or Marathi, the operative wording was read
+directly and the article number is cited.
+
+**Thailand — the ceiling is published, what sits below it is not.**
+- **Land Traffic Act B.E. 2522 (1979), s.139(6)** — empowers the Head of Traffic Officers to fix speeds *within the rates prescribed by ministerial regulation*, on being "of the opinion that it will produce safety and convenience". No quantitative threshold, crash-rate trigger, required study or consultation appears in the section. Consolidated text, §139 at pp. 34–35.
+- **Land Traffic Act (No. 13) B.E. 2565 (2022)** — checked in full: it does not amend s.139. Gazette Vol. 139, Part 28 Kor (7 May 2022).
+- **Ministerial Regulation Prescribing Speeds for Driving on Roadways B.E. 2564 (2021)** — the ceiling. Issued by the Prime Minister; sets speeds by area type and vehicle class (other vehicles: 80 in built-up areas, 90 outside, 100 on divided roads outside). Its cl.3 defines a "community area" — which determines whether 80 or 90 applies — as an area to be **designated by notification of the Head of Traffic Officers**, with no population, flow or distance threshold stated. Gazette Vol. 138, Part 77 Kor (23 Nov 2021), in force 240 days after publication.
+- **Ministerial Regulation Prescribing Vehicle Speeds on Designated National or Rural Highways B.E. 2564 (2021)** — the exception that permits 120 km/h. Issued by the Minister of Transport under s.5(1) of the Highway Act B.E. 2535. Applies only to carriageways with **two or more lanes in each direction, a barrier median, and no at-grade U-turns**, and only to stretches **individually gazetted by the Director of National Highways**. Gazette Vol. 138, Part 17 Kor (10 Mar 2021).
+- **Notifications of the Director of National Highways (Nos. 1–4, 2021–2023)** — the stretches so designated, each specified by kilometre marker.
+- **Regulation of the Head of Traffic Officers in the Bangkok Metropolis B.E. 2567 (2024)** — 60 km/h on every road in the city, 50 km/h on ten roads around the royal precinct, **thirteen named roads exempted**. Issued under ss.4(38), 139(6) and 139(20). Signed 6 Dec 2024, gazetted 23 Dec 2024, in force 24 Dec 2024.
+- **Provincial comparators, Phatthalung and Pattani, both B.E. 2561 (2018)** — issued under the same s.139(6), these record that the limit was considered by the provincial land-traffic sub-committee under a measure approved by the Cabinet, and list for each stretch the authority responsible for the road and its length. ⚠️ Two provinces only; no claim is made about provincial practice generally.
+
+**India — the same two-tier structure.**
+- **Motor Vehicles Act, 1988, s.112** — s.112(1) proviso caps any limit at the maximum fixed by the Central Government by gazette notification; s.112(2) empowers "the State Government **or any authority authorised in this behalf by the State Government**" to fix limits, and requires no notification at all where a restriction lasts not more than one month. **The section names no office.**
+- **Government of Maharashtra, Motor Vehicles Department Manual, Part III, §8.1** — restates s.112 in the same terms and **likewise names no office**.
+- **Notification No. 187/Addl CP/Traffic/Permanent/2026, Mumbai (25 Aug 2026)** — an instance of the power in use: signed by the **Additional Commissioner of Police (Traffic)**, under s.115 of the Act and a 1990 State Government delegation notification, setting 80 / 60 / 40 km/h on straight sections, in tunnels and at curves of one road, and barring three-wheelers from it.
+- **S.O. 1522(E) (6 Apr 2018)**, the central ceiling table, is cited from an official parliamentary answer rather than the gazette original; **its current status has not been verified** — see `sources/legal/README.md`.

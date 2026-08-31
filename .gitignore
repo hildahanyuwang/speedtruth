@@ -23,3 +23,12 @@ cv_manifest*.json
 meta.json
 cv_validation_sonnet.json
 streetview_shortlist.md
+
+# --- Exception: published legal instruments -------------------------------
+# Government gazettes, statutes, ministerial regulations and police
+# notifications, published by the states concerned and freely available from
+# their official portals. These are NOT challenge data and carry no FDUA
+# restriction; the blanket *.pdf rule above would otherwise exclude them.
+# Scope is limited to sources/legal/ — nothing else is un-ignored.
+!sources/legal/**/*.pdf
+!sources/legal/**/*.md
