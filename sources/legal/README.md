@@ -70,13 +70,26 @@ where both are known.
 
 ---
 
-## Notes for anyone re-reading these files
+## Key pages, viewable without downloading anything
 
-**Some of these files will not preview in the browser.** GitHub reports "Unable to render
-code block" for several of them. That is a limitation of the in-page viewer, not a damaged
-file: the gazette PDFs are scans or use embedded subset fonts that the viewer cannot
-handle. **Download the file and it opens normally.** Each entry above also gives the
-official URL, so any item can be checked against the source rather than against this copy.
+GitHub cannot preview most of these PDFs — it reports "Unable to render code block". That
+is a limitation of the in-page viewer, not a damaged file: these are scans, or they use
+embedded subset fonts the viewer cannot handle. **Downloading any of them works.**
+
+So that the operative wording can be read in the browser, `excerpts/` holds the single
+page of each document that carries the provision this submission relies on:
+
+| Page image | What is on it |
+|---|---|
+| [`TH_MinReg_HighwaySpeed_BE2564_A__p1_conditions_and_three_wheeler.png`](excerpts/TH_MinReg_HighwaySpeed_BE2564_A__p1_conditions_and_three_wheeler.png) | The three conditions a road must meet before 120 km/h may apply — two or more lanes each way, a barrier median, no at-grade U-turns — and clause 3(2), which sets **65 km/h for three-wheelers** |
+| [`TH_BKK_SpeedOrder_BE2567__p2_exemptions_and_signature.png`](excerpts/TH_BKK_SpeedOrder_BE2567__p2_exemptions_and_signature.png) | The **thirteen exempted roads**, item 4.4 being Phahonyothin; the repeal clause; and the signature block dated 6 December 2024 |
+| [`IN_SO1522E_MaxSpeed_2018__p2_speed_table.png`](excerpts/IN_SO1522E_MaxSpeed_2018__p2_speed_table.png) | The full central speed table in English, row 6 setting **50 km/h for three-wheeled vehicles** on every road class, plus the 5 per cent enforcement tolerance and the file number |
+| [`IN_Mumbai_CoastalRoad_Notif187_2026__p2_speed_table_and_signature.png`](excerpts/IN_Mumbai_CoastalRoad_Notif187_2026__p2_speed_table_and_signature.png) | **80 / 60 / 40 km/h** for straight sections, tunnels and curves on one road; the list of vehicles barred from it, which includes all three-wheelers; and the signature of the Additional Commissioner of Police (Traffic) |
+
+These are page images of the committed PDFs, not separate sources. Anything they show can
+be checked against the full document in the same folder, or against the official URL.
+
+## Notes for anyone re-reading these files
 
 **Thai gazette PDFs from 2024 do not extract as text.** The 2024 Bangkok order and the
 other 2024 police regulations embed subsetted fonts without a ToUnicode map, so

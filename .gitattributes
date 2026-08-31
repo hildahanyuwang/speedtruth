@@ -1,0 +1,12 @@
+# Treat these as binary: never apply end-of-line conversion, never try to diff
+# them as text. Without this, Git on Windows warns about LF/CRLF on every PDF
+# it touches, and a stray conversion would corrupt the file silently.
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.gpkg  binary
+*.parquet binary
+*.pmtiles binary
+*.docx  binary
+*.xlsx  binary
+*.zip   binary
