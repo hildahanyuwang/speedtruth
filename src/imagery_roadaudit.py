@@ -12,14 +12,14 @@ We pull one image per segment for three strata and shuffle them blind:
   A. safe=30 assigned via a school/market within 150 m (does imagery confirm a
      real pedestrian-mixing road, or did the OSM proxy mis-trigger?)
   B. grade_sep_uncertain trunk (is it actually access-controlled / separated?)
-  C. Compliant controls (are they genuinely safer / separated?)
+  C. Lower-priority controls (are they genuinely safer / separated?)
 
 The rater (Claude vision) scores each anonymised image on a road-condition
 rubric BEFORE seeing the model's assumption (key written separately), then we
 measure agreement. Validates the score against VISIBLE road condition, not crash
 outcomes. Images (c) Mapillary contributors, CC BY-SA.
 
-Run:  MLY_TOKEN=<token> python src/streetview_roadaudit.py
+Run:  MLY_TOKEN=<token> python src/imagery_roadaudit.py
 """
 import os, json, time, random, urllib.request, urllib.parse
 import geopandas as gpd, warnings
@@ -60,7 +60,7 @@ pools = {
                             .sort_values("speed_safety_score", ascending=False)).head(120),
     "B_gradesep": midpoints(g[g.grade_sep_uncertain]
                             .sort_values("p85", ascending=False)).head(120),
-    "C_control":  midpoints(g[g.tier == "Compliant"]
+    "C_control":  midpoints(g[g.tier == "Lower priority"]
                             .sort_values("traffic_pct", ascending=False)).head(200),
 }
 

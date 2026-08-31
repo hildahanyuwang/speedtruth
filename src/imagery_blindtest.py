@@ -4,7 +4,7 @@ SpeedTruth, blind street-level verification WITH CONTROLS.
 Upgrade over the first 8-image spot check: this builds a DISCRIMINATIVE test.
 We pull Mapillary imagery for BOTH:
   - TREATMENT: top Priority-1 segments (high score, the roads we flag as unsafe), and
-  - CONTROL:   Compliant segments (low score, the roads we call safe).
+  - CONTROL:   Lower-priority segments (low score, the roads we call safe).
 Images are saved with ANONYMISED ids (img_01..img_NN) in a shuffled order; the
 tier/score key is written to a SEPARATE file the rater does not open until after
 rating each image purely on its visible content. Then we ask: can the model's
@@ -15,7 +15,7 @@ This tests whether the score corresponds to VISIBLE reality (road condition),
 NOT crash outcomes. We state that boundary plainly. Images (c) Mapillary
 contributors, CC BY-SA.
 
-Run:  MLY_TOKEN=<token> python src/streetview_blindtest.py
+Run:  MLY_TOKEN=<token> python src/imagery_blindtest.py
 """
 import os, json, time, random, urllib.request, urllib.parse
 import geopandas as gpd, warnings
@@ -56,10 +56,10 @@ treat = midpoints(
 ).head(60)
 
 # CONTROL, the model's "safe" calls, but HARD controls: busy/trafficked roads the
-# model still scores Compliant (these have street-view coverage AND look like they
+# model still ranks Lower priority (these have imagery coverage AND look like they
 # *could* be flagged, a fairer discriminative test than empty rural roads).
 ctrl = midpoints(
-    g[g.tier == "Compliant"].sort_values("traffic_pct", ascending=False)
+    g[g.tier == "Lower priority"].sort_values("traffic_pct", ascending=False)
 ).head(250)
 
 def collect(df, label, quota):
@@ -88,7 +88,7 @@ def collect(df, label, quota):
 
 print("Collecting treatment (Priority 1)…")
 t = collect(treat, "TREAT", N_TREAT)
-print("Collecting control (Compliant)…")
+print("Collecting control (Lower priority)…")
 c = collect(ctrl, "CTRL", N_CTRL)
 
 # shuffle together, assign anonymised ids, download, split visible images from key

@@ -34,7 +34,7 @@ FIELD_MAP = {
     "pct_over":     ("PercentOverLimit", "PercentOverLimit"),
     "sample_size":  ("SampleSizeTotal", "Sample_Size_Total"),
     "traffic_pct":  ("RankedPercentile", "RankedPercentile"),
-    "street_link":  ("StreetImageLink", "StreetImageLink"),  # "lon,lat,lon,lat" start/end, for street-view checks
+    "street_link":  ("StreetImageLink", "StreetImageLink"),  # "lon,lat,lon,lat" start/end, for manual location checks
     # length_m is not taken from a field, computed directly from UTM geometry (see load_region)
 }
 

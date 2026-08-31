@@ -11,7 +11,7 @@ Validation: run it first on output/roadaudit_results.json (the 32 segments a
 human rated blind) to measure model-vs-human agreement, then on the full sample.
 
 Usage:
-  ANTHROPIC_API_KEY=...  python src/streetview_cv_classify.py [manifest.json] [out.json]
+  ANTHROPIC_API_KEY=...  python src/imagery_cv_classify.py [manifest.json] [out.json]
 Defaults: output/cv_manifest.json -> output/cv_labels.json
 Model via CV_MODEL env (default claude-haiku-4-5-20251001).
 """

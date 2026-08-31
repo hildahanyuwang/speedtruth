@@ -1,11 +1,21 @@
-"""SpeedTruth, street-level verification.
+"""SpeedTruth, manual verification shortlist.
 
-Turns each priority segment into a clickable Google Street View pano at the
-segment midpoint, so a reviewer can SEE the road condition behind the score.
+Builds a shortlist of priority segments with a clickable map/panorama link at
+each segment midpoint, so a human reviewer can look at the road behind the score.
+
+SCOPE BOUNDARY, STATED EXPLICITLY:
+  * This module emits Google Maps URL strings only. It downloads no image, calls
+    no Google API, and extracts no features. The links exist for a person to open.
+  * All imagery that the pipeline actually reads, and everything the vision model
+    is ever shown, comes from Mapillary (CC BY-SA). See imagery_pull.py,
+    imagery_cv_classify.py, imagery_blindtest.py and imagery_roadaudit.py.
+  * Google Street View imagery is never ingested, because its terms forbid
+    feature extraction.
+
 Exports two evidence shortlists (Markdown) for the Findings report:
   1. Top priority segments per region.
   2. The highest-impact cases: high-speed arterials passing schools/markets.
-No API key needed, links open the public Street View pano.
+No API key needed.
 """
 import geopandas as gpd
 import pandas as pd
@@ -39,8 +49,8 @@ def table(df, cols_header):
 def main():
     g = load()
     hdr = ["Region", "Road", "Class", "Land", "Limit", "P85", "Safe", "Score", "PedFatal@P85", "Verify"]
-    out = ["# SpeedTruth, Street-Level Verification Shortlist\n",
-           "*Each link opens the Google Street View panorama at the segment midpoint. "
+    out = ["# SpeedTruth, Manual Verification Shortlist\n",
+           "*Each link opens the public Google Maps panorama at the segment midpoint, for human inspection only. "
            "Use it to visually confirm the condition behind the score.*\n"]
 
     out.append("\n## A. Top priority segments (per region)\n")
@@ -76,9 +86,9 @@ def main():
                    f"  - *{r['governance_flag']}*\n"
                    f"  - [Verify on Street View]({sv_url(r['mlat'], r['mlon'])})")
 
-    with open("output/streetview_shortlist.md", "w", encoding="utf-8") as f:
+    with open("output/verification_shortlist.md", "w", encoding="utf-8") as f:
         f.write("\n".join(out))
-    print(f"Wrote output/streetview_shortlist.md")
+    print(f"Wrote output/verification_shortlist.md")
     print(f"  Top-priority links + {len(cases)} school/market high-impact cases")
     print(f"\nHighest-impact case sample:")
     for _, r in cases.head(3).iterrows():
