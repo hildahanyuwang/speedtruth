@@ -1,4 +1,4 @@
-"""Probe Mapillary coverage on top priority segments before committing to street-view CV."""
+"""Probe Mapillary coverage on top priority segments before committing to imagery-based CV."""
 import os, json, time, urllib.request, urllib.parse
 import geopandas as gpd, warnings
 warnings.filterwarnings("ignore")
