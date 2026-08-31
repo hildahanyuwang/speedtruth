@@ -23,16 +23,36 @@ from scoring import build
 
 KSI_EXPONENT = 3.0          # killed-and-seriously-injured (Elvik 2009; fatal alone ~4)
 
-# intervention-cost tiers (relative units), by what the fix actually requires
-def cost_tier(row):
-    # limit itself is set too high but traffic isn't racing: a limit/sign change is cheap
-    if row["speed_limit"] > row["safe_threshold"] and (row["p85"] - row["safe_threshold"]) <= 15:
-        return 1, "Re-set limit / signs (low cost)"
-    # traffic runs fast near VRUs: needs enforcement + traffic-calming (medium)
-    if not row["has_school_market"]:
-        return 2, "Enforcement + calming (medium cost)"
-    # fast traffic AND pedestrians/markets present: needs physical protection (high)
-    return 4, "Physical protection: footways/crossings/separation (high cost)"
+# AUDIT-P1 (2026-08-28): this was an if/elif/else cascade, so each segment could carry
+# only one label. The three conditions are not alternatives - 1,271 Thai segments satisfy
+# all three at once - and because has_school_market is true on 94% of Thailand's flagged
+# segments the last branch absorbed 93.6% of them. The result was that "re-set the limit"
+# appeared on 4 of 2,785 Thai segments, in a study whose subject is whether the posted
+# limit is right, and on all 2,785 of which it is above the survivable speed. The three
+# are now reported together; cost is the most demanding action that applies.
+#
+# Each test reads only published attributes, so a reader can rebuild this column from the
+# layer: A from limit_gap_kmh > 0, B from speed_p85 > speed_limit, C from school_market.
+ACTIONS = [
+    # (flag name, cost tier, phrase). Phrases are lowercase and joined with " + ";
+    # the first letter of the finished label is capitalised, so every combination
+    # reads as a sentence fragment on its own.
+    ("limit",   1, "lower the limit"),
+    ("enforce", 2, "enforcement"),
+    ("protect", 4, "protection for people on foot"),
+]
+
+def diagnose(row):
+    applies = [
+        row["speed_limit"] > row["safe_threshold"],      # the sign itself permits an unsurvivable speed
+        row["p85"] > row["speed_limit"],                 # nobody is keeping to the sign
+        bool(row["has_school_market"]),                  # people on foot make the consequence worse
+    ]
+    parts = [a for a, ok in zip(ACTIONS, applies) if ok]
+    if not parts:                                        # not observed in either region; kept explicit
+        return 2, "Review: flagged on exposure alone"
+    label = " + ".join(p[2] for p in parts)
+    return max(p[1] for p in parts), label[0].upper() + label[1:]
 
 def main():
     g = build()
@@ -47,7 +67,7 @@ def main():
     hi["exposure"] = tp * (hi["length_m"] / 1000.0)
     hi["benefit"] = hi["ksi_reduction"] * hi["exposure"]            # relative safety benefit
 
-    tiers = hi.apply(cost_tier, axis=1)
+    tiers = hi.apply(diagnose, axis=1)
     hi["cost"] = [t[0] for t in tiers]
     hi["intervention"] = [t[1] for t in tiers]
     hi["bc_ratio"] = hi["benefit"] / hi["cost"]
