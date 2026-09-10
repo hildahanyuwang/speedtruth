@@ -2,6 +2,16 @@
 External validation (Maharashtra): do the districts SpeedTruth flags as high-risk
 also carry more officially-designated accident BLACK SPOTS?
 
+DOES NOT RUN AS WRITTEN (recorded 2026-08-17, docstring fixed 2026-09-10).
+SP below points at a session scratchpad directory that has since been deleted, so the
+district boundary file it needs is gone. The script is kept because it is the Phase 1
+original that produced the published per-district table in
+output/validation_maharashtra.csv.
+To recompute the correlations, run _dev_scripts/maharashtra_validation_stats.py: the
+spatial join is already baked into that CSV, so it needs no boundary file, no key and
+no confidential data, and it also adds the road-class axis (85.9% of official black
+spots sit on national + state highways).
+
 Ground-truth source: Maharashtra Highway Traffic Police, "Black Spots 2021-2023"
 (779 black spots aggregated by police unit; district-level COUNTS only, no coords).
 Downloaded PDF parsed to the BLACKSPOT dict below.
