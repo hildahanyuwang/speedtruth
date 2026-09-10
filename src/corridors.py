@@ -205,7 +205,15 @@ def main():
     print(multi.nlargest(12, "total_benefit")[show].to_string(index=False))
 
     # outputs (FDUA-safe: derived aggregates only)
-    C.to_csv("output/corridors_summary.csv", index=False)
+    # AUDIT-F1 (2026-09-10): mean_ksi_reduction_pct was published in both summaries and
+    # should not have been. For a single-segment unit it is that segment's own
+    # ksi_reduction, and ksi_reduction = 1 - (safe/p85)**3 inverts to p85 as soon as
+    # safe is reconstructed, which open data allows. On a test segment, the rounded
+    # percentage returned p85 to within 1 km/h. 2,464 of the 2,869 units are
+    # single-segment, so the column is dropped from what gets written. It stays in the
+    # frame above, where it is only printed.
+    PUBLISHED = C.drop(columns=["mean_ksi_reduction_pct"], errors="ignore")
+    PUBLISHED.to_csv("output/corridors_summary.csv", index=False)
     # `n_corridors` stays the count of ALL units for continuity with the published
     # figure; `n_multi_segment` is the linked-corridor count. The per-region harm
     # shares are the reason the app cannot simply default to corridors-only: the same
@@ -228,7 +236,8 @@ def main():
                "dual_pair_units": int(C["possible_dual_pair"].sum()),
                "dual_pair_units_that_are_corridors":
                    int((C["possible_dual_pair"] & (C["unit_type"] == "Corridor")).sum()),
-               "top_corridors": multi.nlargest(20, "total_benefit").to_dict(orient="records")},
+               "top_corridors": multi.drop(columns=["mean_ksi_reduction_pct"], errors="ignore")
+                                     .nlargest(20, "total_benefit").to_dict(orient="records")},
               open("output/corridors_summary.json", "w"), ensure_ascii=False, indent=2)
 
     # dissolved corridor geometries with safe attributes only (no raw probe fields)
