@@ -45,20 +45,31 @@ A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thaila
 - **Honest nulls:** a district-level test against police black spots did *not* converge, expected (reactive vs proactive), reported plainly.
 
 ## Data & compliance (FDUA)
-**No challenge data is included in this repository.** The datasets are provided under ADB's Fair Data Use Agreement, which requires confidentiality and deletion within 14 days of participation ending. Per FDUA §4.4, only **derived outputs** (scores, classifications, aggregated maps) are shared, never raw probe values (posted limits, P85, distributions) or anything that could reconstruct them. `.gitignore` blocks all raw data, geometry-bearing derivatives, and per-segment tables. To reproduce, place the challenge files in the project root.
+**No challenge data is included in this repository.** The datasets are provided under ADB's Fair Data Use Agreement, which requires confidentiality and deletion within 14 days of participation ending. Per FDUA §4.4, only **derived outputs** (scores, classifications, aggregated maps) are shared, never raw probe values (posted limits, P85, distributions) or anything that could reconstruct them. `.gitignore` blocks all raw data, geometry-bearing derivatives, and any per-segment table that carries or reconstructs a probe value. To run the pipeline itself, place the challenge files in the project root.
 
 ## Setup & reproduce
 
-**Check every published number, in one command, with no credentials:**
+**Check the published numbers in one command, with no credentials:**
 ```bash
 pip install -r requirements.txt
-python reproduce.py          # recompute all headline figures from the committed outputs
+python reproduce.py          # checks each published figure against the committed outputs
 ```
-It recomputes each figure that appears in the report, on the front page and in the
-published map layers, compares it with the value that was actually published, and exits
-non-zero if any has drifted. It needs no API keys and none of the confidential challenge
-data, so a reviewer can run it. `python reproduce.py --chain` prints the upstream
+It compares each published figure with the value recomputed from the committed outputs
+and exits non-zero if any has drifted. `python reproduce.py --chain` prints the upstream
 pipeline order.
+
+**40 of the 46 figures are checked here, with no API keys and none of the confidential
+data.** They run against `output/reproduction_bundle.csv`, one row per scored segment
+carrying the classifications and flags but no coordinates and no speed value of any kind.
+
+**The other 6 are not attempted, and the script names them rather than dropping them.**
+All six need a posted limit or an observed speed, which the licence keeps out of this
+repository; anyone holding the challenge data gets all 46 from the same command. The
+output also marks which figures are recomputed from per-segment data and which are only
+checked against a committed aggregate, because those are not the same evidence.
+
+**[REPRODUCIBILITY.md](REPRODUCIBILITY.md)** sets out the two tiers, what the bundle
+deliberately excludes, and what it still discloses.
 
 **Re-run the pipeline itself** (needs the challenge data under FDUA, plus API keys):
 ```bash

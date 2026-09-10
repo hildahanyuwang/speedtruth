@@ -1,0 +1,7 @@
+{
+  "source": "output/blindtest_results.json (kept local: carries per-image speed_limit, p85, lat, lon)",
+  "n_rated": 24,
+  "n_agreed": 19,
+  "pct_agreed": 79.2,
+  "note": "blind human rating vs the vision model, one image per segment"
+}
