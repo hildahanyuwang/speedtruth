@@ -3,6 +3,26 @@
 Primary sources for the chapter on **who can lawfully change a speed limit**. Every legal
 claim made in the report is traceable to a document in this folder.
 
+**[`register.csv`](register.csv) is the machine-readable version of this page.** One row
+per instrument: issuing authority, enabling provision, what it governs, signing and
+publication and commencement dates kept apart, gazette volume and part and page, the file
+here, the official URL, and two columns the prose version could not carry — an
+`evidence_level` drawn from a fixed vocabulary, and a `last_verified` date. Rows for
+instruments that are cited but **not** held are in the same table with `held=no`, so the
+gaps are counted alongside the holdings rather than mentioned at the bottom.
+
+`python _dev_scripts/check_legal_register.py` checks the register against this folder:
+every PDF has exactly one row, every row points at a file that exists, every date parses,
+every evidence level is one of the declared five, and every held item carries a URL so the
+copy can be checked against the original. It does not, and cannot, check what a Thai
+regulation says. That part is the excerpts below and the documents themselves.
+
+**Why a register and not just a folder.** This is the part of the work that does not
+transfer to another country: the documents are national, the portals differ, and two of
+them defeated automated retrieval entirely. What transfers is the schema — the set of
+questions a second country has to answer, and the record of which ones were answered and
+on what evidence.
+
 **Why these files are committed.** Two of the official portals involved are not reliably
 reachable from every network: the Thai Royal Gazette site sits behind a Cloudflare
 challenge, and several Indian government domains time out from some regions. A reviewer
