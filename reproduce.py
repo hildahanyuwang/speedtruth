@@ -610,6 +610,8 @@ def main():
                   f"Agreement keeps them out of this repository.\n  Anyone holding the "
                   f"challenge data can recompute all of them by running this script\n  "
                   f"where the per-segment outputs live. See REPRODUCIBILITY.md.")
+
+    print("\nWhere each figure is published")
     for cl in claims:
         print(f"  {cl['id']:<34} {cl['where']}")
 
