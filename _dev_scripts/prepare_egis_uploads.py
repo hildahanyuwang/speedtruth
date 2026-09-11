@@ -86,7 +86,12 @@ SEGMENT_ALIASES = {
     "setting":         "Setting",
     "length_km":       "Segment length (km)",
 
-    "speed_limit":     "Posted speed limit (km/h, estimated)",
+    # Said "estimated" until 2026-09-11, which described the wrong thing. This field is
+    # not estimated by us: harmonize.py takes SpeedLimit straight from the challenge
+    # geopackage, and the organiser's Data User Guide records it as obtained by TomTom
+    # and not validated. A reader who saw "estimated" would have read our uncertainty
+    # into a value we did not produce.
+    "speed_limit":     "Posted speed limit (km/h, as supplied: TomTom, not validated)",
     "speed_p85":       "Observed 85th-percentile speed (km/h)",
     "speed_median":    "Observed median speed (km/h)",
     "safe_speed":      "Safe System survivable speed (km/h)",
