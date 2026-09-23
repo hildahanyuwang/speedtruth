@@ -115,3 +115,48 @@ The only VRU-adjacent provided dataset is the **helmet-wearing survey xlsx** (ag
 | 5. Temporal Consistency | ❌ No time-of-day breakdown | Not feasible with provided data |
 
 **Bottom line:** Factors 1–2 are immediately buildable from the provided data. The differentiating factors (3, 4) require an external-data ingestion step, this should be planned into Day 2 rather than discovered on Day 4.
+
+---
+
+## 9. Addendum, 11 September 2026: the per-segment traffic statistics released on 9 September
+
+The organisers released a file of per-segment TomTom traffic statistics for Thailand on
+9 September 2026, delivering an offer made in the Phase 1 technical review and repeated
+at the office hour on 14 August. **This analysis does not use it.** The reasons are
+recorded here rather than left implicit, because the decision is a choice and not an
+oversight.
+
+**What it contains that the challenge dataset does not.** 43,776 segments, each with
+nineteen speed percentiles from the 5th to the 95th, a per-segment sample size, a speed
+standard deviation, a functional road class, and TomTom's own posted-limit value. The
+challenge dataset carries a single 85th-percentile value per road unit.
+
+**Why it is not used here.**
+
+1. **No shared identifier.** The challenge data is keyed on Overture identifiers; the
+   statistics file is keyed on TomTom segment identifiers and a UUID. Aligning them
+   requires geometric matching, which is a piece of work in itself and introduces its own
+   error term.
+2. **A different extent of network.** The statistics file covers about 11,287 km across
+   43,776 short segments, concentrated in the two highest functional road classes. The
+   network scored here is 59,721 km in Thailand. Substituting one for the other would
+   silently change what the analysis is about.
+3. **Timing.** Adopting it would mean re-running the scoring, the corridor aggregation,
+   the published layers and every figure in this report, two weeks before the deadline,
+   in exchange for a better estimate of a quantity already reported with its limits.
+
+**What it does settle.** The scored Thai network here is exactly the rows of the
+challenge `Analysis` table with `AnalysisStatus = Valid` **and** `SpeedLimit > 0`: 13,944
+valid rows, of which 11,134 carry a usable limit. That replaces the looser description
+used previously.
+
+**It also confirms a Day 1 finding rather than overturning it.** Section 8, factor 5,
+recorded that no time-of-day breakdown was available. The statistics file carries one
+aggregation period per segment covering the whole of 2024, so temporal analysis remains
+out of scope for this data, as first recorded.
+
+**What would be done with it next.** The obvious use is not a better 85th percentile but
+a different question: what share of vehicles exceeds the survivable speed, and how
+dispersed are the speeds on a segment, weighted by how many observations stand behind
+each estimate. That is a change of metric, not a refinement of this one, and it belongs
+to a version that begins after a submission rather than during one.
