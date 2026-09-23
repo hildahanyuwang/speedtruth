@@ -1,13 +1,13 @@
 # SpeedTruth, Investment Corridor Short-list
 
-*From flagged segments to fundable corridors. A development bank invests in corridors, not isolated 150 m segments, so SpeedTruth groups the flagged Priority-1/2 segments into contiguous, same-road investment corridors and ranks them by where avoidable harm concentrates.*
+*From flagged segments to fundable units. A development bank invests in routes, not isolated 150 m segments, so SpeedTruth links flagged Priority-1/2 segments that are contiguous and share a road name into corridors, and ranks them by where avoidable harm concentrates. A flagged segment with no named neighbour to link to stays on its own as an unlinked stretch. Those are ranked too, but separately: they are not yet a route anyone can fund.*
 *ADB AI for Safer Roads 2026 · Thailand & Maharashtra (India) · derived outputs only (FDUA-safe)*
 
 ---
 
 ## The headline for an investment committee
-- **3,679 flagged segments collapse into 2,869 corridors** (405 multi-segment routes; the rest single-segment spots).
-- **The top 20% of corridors carry ~76% of the total avoidable-harm benefit.** Funding flows to a short-list, not a 3,679-line spreadsheet.
+- **3,679 flagged segments resolve into 2,869 units: 405 corridors and 2,464 unlinked stretches.** The two are different things and are ranked separately. An unlinked stretch is not necessarily small — the longest is 179.7 km, in Maharashtra, on a road with no name to link it to.
+- **The top 20% of units carry ~76% of the total avoidable-harm benefit** (75.8%). Taking corridors alone, the top 20% carry **66.9%**. Both figures are usable; the point is to say which one is being quoted. Funding flows to a short-list either way, not to a 3,679-line spreadsheet.
 - Each corridor carries a dominant **intervention class**, a **cost tier**, an **iRAP-style benefit-cost index**, and a coordinate to inspect on the ground.
 
 ## Method (transparent, reproducible, `src/corridors.py`)
@@ -32,7 +32,7 @@ Two flagged segments join the same corridor if they are **spatially contiguous**
 | 14 | Rangsit-Nakhon Nayok Road | THA | 4 | 142.0 | 4 | Footways / crossings / separation | ~19 | `14.10239,100.90959` |
 | 15 | Asian Highway | THA | 4 | 134.3 | 4 | Footways / crossings / separation | ~18 | `7.91071,99.92769` |
 
-*Full ranked list: `output/corridors_summary.csv` (2,869 corridors). Interactive map: `output/corridor_map.html`. Geometry: `output/corridors.geojson`.*
+*Full ranked list: `output/corridors_summary.csv` (2,869 units: 405 corridors, 2,464 unlinked stretches). Interactive map: `output/corridor_map.html`. Geometry: `output/corridors.geojson`.*
 
 ## How a ministry / ADB uses this
 1. **Fund the short-list.** Start at rank 1 and work down until the budget is exhausted; the benefit concentration means a few corridors capture most of the avoidable harm.
