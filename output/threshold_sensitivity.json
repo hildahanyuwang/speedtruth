@@ -1,0 +1,255 @@
+{
+  "generated_by": "_dev_scripts/threshold_sensitivity.py",
+  "question": "How much of the published headline is a property of the network, and how much is a property of the chosen survivable speed?",
+  "threshold_mix_published": {
+    "THA": {
+      "70": 4453,
+      "50": 3907,
+      "30": 2234,
+      "110": 519,
+      "90": 21
+    },
+    "MAH": {
+      "70": 2543,
+      "50": 532,
+      "30": 463,
+      "110": 39
+    }
+  },
+  "variants": [
+    {
+      "variant": "published",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 10211,
+          "pct_above": 91.7,
+          "median_gap": 30.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 733,
+          "pct_above": 20.5,
+          "median_gap": -15.0
+        }
+      },
+      "ratio_above": 4.5,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "floor_raised_to_40",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 10191,
+          "pct_above": 91.5,
+          "median_gap": 30.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 698,
+          "pct_above": 19.5,
+          "median_gap": -15.0
+        }
+      },
+      "ratio_above": 4.7,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "floor_raised_to_50",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 10152,
+          "pct_above": 91.2,
+          "median_gap": 30.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 590,
+          "pct_above": 16.5,
+          "median_gap": -15.0
+        }
+      },
+      "ratio_above": 5.5,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "floor_raised_to_60",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 10026,
+          "pct_above": 90.0,
+          "median_gap": 20.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 185,
+          "pct_above": 5.2,
+          "median_gap": -15.0
+        }
+      },
+      "ratio_above": 17.3,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "all_thresholds_plus_5",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 10197,
+          "pct_above": 91.6,
+          "median_gap": 25.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 558,
+          "pct_above": 15.6,
+          "median_gap": -20.0
+        }
+      },
+      "ratio_above": 5.9,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "all_thresholds_plus_10",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 8771,
+          "pct_above": 78.8,
+          "median_gap": 20.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 407,
+          "pct_above": 11.4,
+          "median_gap": -25.0
+        }
+      },
+      "ratio_above": 6.9,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "all_thresholds_plus_20",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 5820,
+          "pct_above": 52.3,
+          "median_gap": 10.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 299,
+          "pct_above": 8.4,
+          "median_gap": -35.0
+        }
+      },
+      "ratio_above": 6.2,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "all_thresholds_plus_30",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 3862,
+          "pct_above": 34.7,
+          "median_gap": 0.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 48,
+          "pct_above": 1.3,
+          "median_gap": -45.0
+        }
+      },
+      "ratio_above": 26.7,
+      "thailand_median_positive": false,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true
+    },
+    {
+      "variant": "gap_must_exceed_10",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 8771,
+          "pct_above": 78.8,
+          "median_gap": 20.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 407,
+          "pct_above": 11.4,
+          "median_gap": -25.0
+        }
+      },
+      "ratio_above": 6.9,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true,
+      "identical_to": "all_thresholds_plus_10"
+    },
+    {
+      "variant": "gap_must_exceed_20",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 5820,
+          "pct_above": 52.3,
+          "median_gap": 10.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 299,
+          "pct_above": 8.4,
+          "median_gap": -35.0
+        }
+      },
+      "ratio_above": 6.2,
+      "thailand_median_positive": true,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true,
+      "identical_to": "all_thresholds_plus_20"
+    },
+    {
+      "variant": "gap_must_exceed_30",
+      "by_region": {
+        "THA": {
+          "n": 11134,
+          "n_above": 3862,
+          "pct_above": 34.7,
+          "median_gap": 0.0
+        },
+        "MAH": {
+          "n": 3577,
+          "n_above": 48,
+          "pct_above": 1.3,
+          "median_gap": -45.0
+        }
+      },
+      "ratio_above": 26.7,
+      "thailand_median_positive": false,
+      "maharashtra_median_negative": true,
+      "direction_still_opposite": true,
+      "identical_to": "all_thresholds_plus_30"
+    }
+  ]
+}

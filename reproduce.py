@@ -275,7 +275,12 @@ def build_claims(g, c, corr, blind, audit, restricted, skipped, blind_sum, audit
     # script where the per-segment outputs live.
     RESTRICTED_IDS = ["limit_above_survivable", "limit_above_survivable_pct_THA",
                       "limit_above_survivable_pct_MAH", "limit_gap_median_THA",
-                      "limit_gap_median_MAH", "school_market_ped_fatality_median"]
+                      "limit_gap_median_MAH", "school_market_ped_fatality_median",
+                      "critical_THA_limit_above", "critical_THA_gap_median", "flagged_THA",
+                      "flagged_THA_limit_above_pct", "flagged_MAH_limit_needs_no_change",
+                      "threshold_floor30_share_THA", "threshold_floor50_pct_above_THA",
+                      "threshold_plus10_pct_above_THA", "threshold_plus20_pct_above_THA",
+                      "flagged_MAH_enforcement_km", "flagged_MAH_enforcement_median_excess"]
     if restricted:
         gap = c.speed_limit - c.safe_threshold_v3
         claims += [
@@ -308,6 +313,83 @@ def build_claims(g, c, corr, blind, audit, restricted, skipped, blind_sum, audit
                  where='index.html (median ~52% pedestrian fatality risk, modelled)',
                  label="  median modelled pedestrian fatality probability at P85, %",
                  value=round(float(sm.ped_fatality_pct.median()), 1)),
+
+            # The narrative leans on these five and none of them was checked here
+            # before 11 September 2026. Three related figures carried in the drafting
+            # notes turned out to be stale when recomputed on that date, so anything
+            # the text asserts now has to be in this table or be marked as unchecked.
+            dict(id="critical_THA_limit_above", published=4539, tol=0,
+                 where="StoryMap ch.3 (of the Critical segments in Thailand)",
+                 label="Thai Critical segments also posted above the survivable speed",
+                 value=int(((c.severity_v3 == "Critical") & (c.region == "THA")
+                            & (gap > 0)).sum())),
+            dict(id="critical_THA_gap_median", published=40, tol=0,
+                 where="StoryMap ch.3 (the middle of that distribution)",
+                 label="  their median gap (km/h)",
+                 value=int(gap[(c.severity_v3 == "Critical") & (c.region == "THA")].median())),
+            dict(id="flagged_THA", published=2785, tol=0,
+                 where="StoryMap ch.7 (segments flagged as priorities in Thailand)",
+                 label="Flagged segments, Thailand (Priority 1 or 2)",
+                 value=int((c.tier_v3.isin(["Priority 1", "Priority 2"]) & (c.region == "THA")).sum())),
+            dict(id="flagged_THA_limit_above_pct", published=100.0, tol=0.1,
+                 where="StoryMap ch.7 (every single one)",
+                 label="  of which posted above the survivable speed, %",
+                 value=round(100 * float((gap[c.tier_v3.isin(["Priority 1", "Priority 2"])
+                                              & (c.region == "THA")] > 0).mean()), 1)),
+            # The counterweight to the sentence above, and the reason the application
+            # does not tell a ministry to lower every limit it flags.
+            dict(id="flagged_MAH_limit_needs_no_change", published=282, tol=0,
+                 where="StoryMap ch.7 (the limit needs no change at all)",
+                 label="Flagged segments in Maharashtra already at or below survivable",
+                 value=int((c.tier_v3.isin(["Priority 1", "Priority 2"]) & (c.region == "MAH")
+                            & (gap <= 0)).sum())),
+
+            # Every one of those 282 is also a segment where the observed speed already
+            # exceeds the posted limit, which is what turns a negative finding into a
+            # list someone can act on. Published after an adversarial review pointed out
+            # that the Maharashtra reader was being handed seven statements about what
+            # their problem is not, and nothing they could fund.
+            dict(id="flagged_MAH_enforcement_km", published=3861, tol=2,
+                 where="StoryMap ch.7 (3,861 kilometres)",
+                 label="  their length, km",
+                 value=int(round(g.length_m[c.tier_v3.isin(["Priority 1", "Priority 2"])
+                                            & (c.region == "MAH") & (gap <= 0)].sum() / 1000))),
+            # 36.5, not 37. The narrative first carried 37 because an exploratory
+            # print used a zero-decimal format and the rounded display was copied into
+            # the text. Published to one decimal so the rounding cannot be repeated,
+            # and the sentence on screen says "more than 36", which is true of more
+            # than half the traffic on those segments.
+            dict(id="flagged_MAH_enforcement_median_excess", published=36.5, tol=0.1,
+                 where="StoryMap ch.7 (half the traffic at least 36 km/h over)",
+                 label="  median observed speed above the posted limit there, km/h",
+                 value=round(float((c.p85 - c.speed_limit)[c.tier_v3.isin(["Priority 1", "Priority 2"])
+                                                          & (c.region == "MAH") & (gap <= 0)].median()), 1)),
+
+            # The survivable speed is the input the headline rests on, so the headline
+            # has to be reported against alternative rulers rather than one. Full run in
+            # _dev_scripts/threshold_sensitivity.py; these four are the ones the
+            # narrative quotes. The first answers the specific objection that the 30
+            # km/h pedestrian floor is producing the result: it is not, because it
+            # applies to a fifth of the Thai network.
+            dict(id="threshold_floor30_share_THA", published=20.1, tol=0.1,
+                 where="StoryMap ch.6 (the 30 km/h floor applies to a fifth of it)",
+                 label="Thai segments whose survivable speed is 30 km/h, %",
+                 value=round(100 * float((c.safe_threshold_v3[c.region == "THA"]
+                                          .round(0) == 30).mean()), 1)),
+            dict(id="threshold_floor50_pct_above_THA", published=91.2, tol=0.1,
+                 where="StoryMap ch.6 (raise the floor to 50 and it barely moves)",
+                 label="  share posted above, if the floor were 50 km/h, %",
+                 value=round(100 * float(((c.speed_limit
+                                           - c.safe_threshold_v3.clip(lower=50)) > 0)
+                                         [c.region == "THA"].mean()), 1)),
+            dict(id="threshold_plus10_pct_above_THA", published=78.8, tol=0.1,
+                 where="StoryMap ch.6 (add 10 km/h to every threshold)",
+                 label="  share posted above, if every threshold rose 10 km/h, %",
+                 value=round(100 * float(((gap - 10) > 0)[c.region == "THA"].mean()), 1)),
+            dict(id="threshold_plus20_pct_above_THA", published=52.3, tol=0.1,
+                 where="StoryMap ch.6 (and 20)",
+                 label="  share posted above, if every threshold rose 20 km/h, %",
+                 value=round(100 * float(((gap - 20) > 0)[c.region == "THA"].mean()), 1)),
         ]
     else:
         skipped.extend(RESTRICTED_IDS)

@@ -58,13 +58,13 @@ It compares each published figure with the value recomputed from the committed o
 and exits non-zero if any has drifted. `python reproduce.py --chain` prints the upstream
 pipeline order.
 
-**40 of the 46 figures are checked here, with no API keys and none of the confidential
+**40 of the 57 figures are checked here, with no API keys and none of the confidential
 data.** They run against `output/reproduction_bundle.csv`, one row per scored segment
 carrying the classifications and flags but no coordinates and no speed value of any kind.
 
-**The other 6 are not attempted, and the script names them rather than dropping them.**
-All six need a posted limit or an observed speed, which the licence keeps out of this
-repository; anyone holding the challenge data gets all 46 from the same command. The
+**The other 17 are not attempted, and the script names them rather than dropping them.**
+All seventeen need a posted limit or an observed speed, which the licence keeps out of
+this repository; anyone holding the challenge data gets all 57 from the same command. The
 output also marks which figures are recomputed from per-segment data and which are only
 checked against a committed aggregate, because those are not the same evidence.
 

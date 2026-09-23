@@ -10,17 +10,17 @@ only this repository, and why the difference exists.
 python reproduce.py
 ```
 
-- **40 of the 46 published figures are checked with no credentials and no confidential
+- **40 of the 57 published figures are checked with no credentials and no confidential
   data.** 25 of those are recomputed from a per-segment table shipped in this
   repository; 15 are checked against committed aggregates and are marked `~` in the
   output, because a check against an aggregate is the weaker of the two.
-- **6 figures are not attempted, and the script names them rather than dropping them.**
-  All six need a speed value, which the data licence keeps out of this repository.
-- **A reader holding the challenge data gets all 46**, by placing the challenge files in
+- **17 figures are not attempted, and the script names them rather than dropping them.**
+  All seventeen need a speed value, which the data licence keeps out of this repository.
+- **A reader holding the challenge data gets all 57**, by placing the challenge files in
   the project root and running the pipeline in `python reproduce.py --chain` order. The
   same command then finds the per-segment outputs and uses them instead.
 
-## Why six figures cannot be checked here
+## Why seventeen figures cannot be checked here
 
 The challenge datasets are provided under a Fair Data Use Agreement. Derived outputs —
 scores, classifications, bands — may be published. The underlying probe measurements may
@@ -30,20 +30,26 @@ Two files carry those measurements per segment: `output/speed_safety_score.geojs
 `output/speed_safety_score_cv.geojson`. Both hold the posted speed limit and the observed
 85th-percentile speed, so `.gitignore` blocks them and they are absent here.
 
-The six figures that depend on them:
+The seventeen figures that depend on them, grouped by what they need:
 
-| Figure | Needs |
+| Figures | Needs |
 |---|---|
-| `limit_above_survivable` | posted limit − survivable speed, per segment |
-| `limit_above_survivable_pct_THA` | same, as a share of Thailand's network |
-| `limit_above_survivable_pct_MAH` | same, Maharashtra |
-| `limit_gap_median_THA` | median of that difference |
-| `limit_gap_median_MAH` | median of that difference |
+| `limit_above_survivable`, `limit_above_survivable_pct_THA`, `limit_above_survivable_pct_MAH`, `limit_gap_median_THA`, `limit_gap_median_MAH` | posted limit − survivable speed, per segment |
+| `critical_THA_limit_above`, `critical_THA_gap_median` | the same difference, on Critical segments only |
+| `flagged_THA`, `flagged_THA_limit_above_pct`, `flagged_MAH_limit_needs_no_change` | sets defined by the sign of that difference |
+| `flagged_MAH_enforcement_km`, `flagged_MAH_enforcement_median_excess` | observed speed against the posted limit |
+| `threshold_floor30_share_THA`, `threshold_floor50_pct_above_THA`, `threshold_plus10_pct_above_THA`, `threshold_plus20_pct_above_THA` | the survivable threshold and the posted limit, per segment, under alternative rulers |
 | `school_market_ped_fatality_median` | modelled fatality probability at the observed speed |
 
 The last one is worth stating plainly: pedestrian fatality probability is a monotonic
 function of the observed speed, so publishing it per segment would return the observed
 speed exactly. It is withheld for that reason, not out of caution.
+
+The four threshold figures deserve a note of their own. `output/threshold_sensitivity.json`
+is shipped here and holds the full result of all eleven alternative rulers, so a reader
+can see what the sensitivity run found. The script still declines to check the four
+published figures against it, because a number verified against a summary this project
+also published is not verified at all. They stay in the not-attempted list.
 
 ## What is shipped instead
 
@@ -96,7 +102,7 @@ The script distinguishes them because they are not the same evidence:
 2. Run the upstream stages in the order printed by `python reproduce.py --chain`.
    Stages 4 and 5 need a Mapillary token and a vision-model key; stages 1–3 and 6–8 do
    not.
-3. Run `python reproduce.py`. With the per-segment outputs present it checks all 46 and
+3. Run `python reproduce.py`. With the per-segment outputs present it checks all 57 and
    reports nothing as skipped.
 
 ## Rebuilding the bundle
