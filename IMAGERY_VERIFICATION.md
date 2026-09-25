@@ -1,7 +1,10 @@
 # SpeedTruth, Street-Level Verification
 
-> **Terminology note (Phase 2, 2026-08).** This document is the Phase 1 record and its
-> wording is unchanged. Two **priority-tier** labels were renamed for the Phase 2 application:
+> **Terminology note (Phase 2, 2026-08, amended 2026-09-25).** This document is the Phase 1
+> record. Its evidence and its tables are unchanged. Two wordings were corrected on
+> 2026-09-25, both in the same direction: a reliability claim resting on eight segments is
+> now reported as the count it is, and the closing takeaway no longer compresses three
+> checks of different strength into one word. Neither correction changes a number. Two **priority-tier** labels were renamed for the Phase 2 application:
 > `Monitor` → **`Watch`**, and `Compliant` → **`Lower priority`**. The rename applies to the
 > *within-region priority* axis only. The **severity** axis keeps its own four values
 > (`Critical` / `Serious` / `Marginal` / `Compliant`), where `Compliant` is the correct word:
@@ -57,7 +60,7 @@ The four cases above confirm that flagged roads look hazardous. But a stronger q
 | **I rated safe** | 4 | 7 |
 
 - **Sensitivity 75%**, **Specificity 88%**.
-- **The model's "safe" calls are highly reliable (7/8).** It correctly did **not** flag four genuine grade-separated expressways (Bangkok–Chonburi Motorway, Kanchanaphisek Road, Chalong Rat Expressway, Buraphawithi Expressway), precisely the separated-road trap that produced the false positive in Part A. Here the model avoided it.
+- **The model agreed on 7 of the 8 segments rated safe.** Eight is too small a denominator to carry a reliability claim, and it is reported here as a count for that reason. It correctly did **not** flag four genuine grade-separated expressways (Bangkok–Chonburi Motorway, Kanchanaphisek Road, Chalong Rat Expressway, Buraphawithi Expressway), precisely the separated-road trap that produced the false positive in Part A. Here the model avoided it.
 - **The model's "unsafe" calls are 12/16 visually confirmed**: motorcycle / auto-rickshaw mixing (Katraj–Dehu Bypass, Bhosari Flyover), market and roadside-vendor exposure, narrow mixed-traffic arterials (Nashik–Pune Highway).
 
 **What the disagreements teach (reported openly):**
@@ -132,4 +135,4 @@ We ran the automated road-condition classifier (Part E) across **3,537 segments 
 - **Where the proxy was too lax, the discovery a POI method cannot make (8% of covered segments lowered; 13% of the lower-tier set).** These are roads with **no school/market POI, so the rule gave them a high safe speed and ranked them low, but the imagery shows a genuine pedestrian-mixing street.** Correcting them upgrades **223 low-priority segments into Priority 1/2**, of which **39 jump from Monitor/Compliant straight to Priority 1** (safe threshold dropping from a mean of 67 to 33 km/h). A posted-limit or POI-based method would never surface these; only reading the road itself does.
 - **Honest scope:** the within-country percentile also reshuffles some Priority-2↔Priority-1 membership, that part is re-ranking, not discovery. The 39 lower-tier promotions, by contrast, are CV-driven and real (all have imagery, all had their threshold lowered).
 
-The takeaway: **imagery-derived road condition does not just trim the ranking, it corrects it both ways**, removing over-flags *and* finding dangerous roads the standard method misses, validated end-to-end (90% vs human, 100% across two models) at 24% coverage. Full-network coverage is a bounded data-collection task for the refinement stage.
+The takeaway: **imagery-derived road condition does not just trim the ranking, it corrects it both ways**, removing over-flags *and* promoting segments the standard method cannot reach, at 24% coverage. The three checks behind that are not equally strong and are set out above: one independent signal (monotonic against functional road class, a field the classifier never sees), one consistency check against a rating by the author at 90% (28 of 31), and one against a second model of the same family at 100%, which shows the read is stable rather than correct. Full-network coverage is a bounded data-collection task for the refinement stage.

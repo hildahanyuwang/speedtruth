@@ -8,7 +8,7 @@
 ## The headline for an investment committee
 - **3,679 flagged segments resolve into 2,869 units: 405 corridors and 2,464 unlinked stretches.** The two are different things and are ranked separately. An unlinked stretch is not necessarily small — the longest is 179.7 km, in Maharashtra, on a road with no name to link it to.
 - **The top 20% of units carry ~76% of the total avoidable-harm benefit** (75.8%). Taking corridors alone, the top 20% carry **66.9%**. Both figures are usable; the point is to say which one is being quoted. Funding flows to a short-list either way, not to a 3,679-line spreadsheet.
-- Each corridor carries a dominant **intervention class**, a **cost tier**, an **iRAP-style benefit-cost index**, and a coordinate to inspect on the ground.
+- Each corridor carries a dominant **intervention class**, a **cost tier**, an **indicative benefit-cost index** drawn from published intervention studies rather than from an economic evaluation of these roads, and a coordinate to inspect on the ground.
 
 ## Method (transparent, reproducible, `src/corridors.py`)
 Two flagged segments join the same corridor if they are **spatially contiguous** (within 60 m, metric UTM) **and share a road name**; connected components of that graph are corridors. Corridors are ranked by **total avoidable-harm benefit** = sum over segments of (Power-Model KSI-reduction x exposure), the same proxy used in the investment case (`FINDINGS.md` §4). This is a transparent, relative prioritisation signal, not a casualty forecast (no crash data; see `FINDINGS.md` §6).
