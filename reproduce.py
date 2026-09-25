@@ -57,6 +57,8 @@ VALIDATION_MAH = "output/validation_maharashtra.csv"   # per-district table, Pha
 # The public stand-in for the two files above: classifications and flags only, no
 # coordinates and no speed values. Built by _dev_scripts/make_reproduction_bundle.py.
 BUNDLE = "output/reproduction_bundle.csv"
+WEIGHT_SCENARIOS = "output/weight_scenarios.json"          # ensemble block, aggregate only
+WEIGHT_SEGMENTS = "output/weight_scenarios_segments.csv"   # per-segment, stays local
 # Aggregate stand-ins for the two per-image validation tables, which carry the posted
 # limit, P85 and coordinates and so stay local. A figure taken from one of these is
 # CHECKED against a committed aggregate, not recomputed, and the table says so.
@@ -98,6 +100,14 @@ def load():
             for col in ("tier", "tier_v3"):
                 if col in df.columns:
                     df[col] = df[col].replace(TIER_RENAME)
+        # The weight-sensitivity run is a separate stage and writes its own per-segment
+        # table. Where it is present the robustness figures are recomputed from it; where
+        # it is not, they are reported as not attempted rather than assumed.
+        if "p1_robustness" not in c.columns and os.path.exists(WEIGHT_SEGMENTS):
+            import pandas as pd
+
+            w = pd.read_csv(WEIGHT_SEGMENTS)[["seg_id", "p1_robustness"]]
+            c = c.merge(w, on="seg_id", how="left", validate="one_to_one")
         return g, c, True
 
     if os.path.exists(BUNDLE):
@@ -107,7 +117,10 @@ def load():
         for col in ("tier", "tier_v3"):
             b[col] = b[col].replace(TIER_RENAME)
         g = b[["seg_id", "region", "road_class", "has_school_market", "severity", "tier"]]
-        c = b[["seg_id", "region", "severity", "severity_v3", "tier_v3", "has_cv"]]
+        cv_cols = ["seg_id", "region", "severity", "severity_v3", "tier_v3", "has_cv"]
+        if "p1_robustness" in b.columns:
+            cv_cols.append("p1_robustness")
+        c = b[cv_cols]
         return g, c, False
 
     sys.exit(f"found neither the per-segment outputs ({BASE}, {CV}) nor the public "
@@ -248,6 +261,15 @@ def build_claims(g, c, corr, blind, audit, restricted, skipped, blind_sum, audit
              where="index.html",
              label="Segments beside a school or market",
              value=len(sm)),
+
+        # The four counts on the opening panel are of the same network, not nested
+        # inside one another. This is the size of the overlap between the second and
+        # the third, published so that the panel cannot be read as a funnel.
+        dict(id="critical_school_market", published=2212, tol=0,
+             where="StoryMap ch.2 (the counts overlap here, they do not nest)",
+             label="  of those, also Critical after the imagery correction",
+             value=int(((c.severity_v3 == "Critical")
+                        & c.seg_id.isin(set(g.loc[g.has_school_market, "seg_id"]))).sum())),
 
         dict(id="critical_but_lowest_tier", published=1192, tol=0,
              where="FINDINGS sec.3.1",
@@ -538,6 +560,33 @@ def build_claims(g, c, corr, blind, audit, restricted, skipped, blind_sum, audit
              value=hs["critical"]),
     ]
 
+    # Weight sensitivity. A separate stage draws 2,000 Dirichlet weightings over the
+    # three factors and re-scores the network under each. The two membership counts are
+    # recomputed here from the per-segment robustness column. The rank correlation is
+    # only checked against the committed summary: re-running 2,000 draws is not what
+    # this script does, and a check against a summary is the weaker of the two.
+    WEIGHT_IDS = ["robust_core", "weight_dependent_p1", "weight_rank_corr_median"]
+    ens = (read_json(WEIGHT_SCENARIOS) or {}).get("ensemble") or {}
+    if "p1_robustness" in getattr(c, "columns", []) and ens:
+        p1 = c.tier_v3 == "Priority 1"
+        robust = c.p1_robustness.fillna("").str.startswith("Robust")
+        claims += [
+            dict(id="robust_core", published=481, tol=0,
+                 where="StoryMap ch.6 (the short list that does not depend on my weights)",
+                 label="Priority 1 under nearly any of 2,000 weightings",
+                 value=int((p1 & robust).sum())),
+            dict(id="weight_dependent_p1", published=992, tol=0,
+                 where="StoryMap ch.6 (stated beside the 481, not behind it)",
+                 label="  Priority 1 only under some weightings",
+                 value=int((p1 & ~robust).sum())),
+            dict(id="weight_rank_corr_median", published=0.954, tol=0.001,
+                 where="StoryMap ch.6 (the ordering barely moves)",
+                 label="  median rank correlation vs the published ranking",
+                 value=round(float(ens.get("spearman_median", float("nan"))), 3)),
+        ]
+    else:
+        skipped.extend(WEIGHT_IDS)
+
     # Two different strengths of check, and the table should not blur them. Most figures
     # are recomputed from per-segment data here. The corridor figures are read from
     # output/corridors_summary.json, which src/corridors.py wrote: that catches a
@@ -549,6 +598,7 @@ def build_claims(g, c, corr, blind, audit, restricted, skipped, blind_sum, audit
         "corridor_harm_share_MAH", "top20pct_benefit_share",
         "top20pct_benefit_share_corridors", "dual_pair_units",
         "dual_pair_units_that_are_corridors",
+        "weight_rank_corr_median",
     }
     for cl in claims:
         cl.setdefault("basis", "aggregate" if cl["id"] in FROM_AGGREGATE else "recomputed")

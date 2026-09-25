@@ -1,0 +1,132 @@
+{
+  "generated_by": "_dev_scripts/weight_scenarios.py",
+  "basis": "imagery-corrected score (score_v3), the version published in the app",
+  "validation": {
+    "v2_reproduced": true,
+    "v3_reproduced": true
+  },
+  "n_segments": 14711,
+  "baseline_weights": {
+    "oper_excess": 0.45,
+    "limit_excess": 0.35,
+    "vru_exposure": 0.2
+  },
+  "factor_collinearity_spearman": {
+    "MAH": {
+      "n_oper~n_limit": 0.498,
+      "n_oper~n_vru": 0.179,
+      "n_limit~n_vru": 0.408
+    },
+    "THA": {
+      "n_oper~n_limit": 0.567,
+      "n_oper~n_vru": 0.05,
+      "n_limit~n_vru": 0.286
+    }
+  },
+  "scenarios": {
+    "W0_baseline": {
+      "label": "Baseline",
+      "rationale": "Published weighting. Operating speed weighted highest as the hardest measured safety signal, VRU exposure lowest as the most proxy-dependent.",
+      "weights": {
+        "oper_excess": 0.45,
+        "limit_excess": 0.35,
+        "vru_exposure": 0.2
+      },
+      "spearman_vs_baseline": 1.0,
+      "spearman_by_region": {
+        "MAH": 1.0,
+        "THA": 1.0
+      },
+      "priority1_n": 1473,
+      "priority1_retained_pct": 100.0,
+      "segments_changing_tier": 0,
+      "segments_changing_tier_pct": 0.0
+    },
+    "W1_equal": {
+      "label": "Equal weights",
+      "rationale": "The null position: no published evidence establishes a ratio between these three factors, so weight them equally and see what changes.",
+      "weights": {
+        "oper_excess": 0.3333333333333333,
+        "limit_excess": 0.3333333333333333,
+        "vru_exposure": 0.3333333333333333
+      },
+      "spearman_vs_baseline": 0.9648,
+      "spearman_by_region": {
+        "MAH": 0.9792,
+        "THA": 0.9542
+      },
+      "priority1_n": 1470,
+      "priority1_retained_pct": 77.9,
+      "segments_changing_tier": 2905,
+      "segments_changing_tier_pct": 19.7
+    },
+    "W2_operating": {
+      "label": "Measured-speed first",
+      "rationale": "An engineer's reading: only the observed P85 is measured; the limit is an administrative artefact and VRU exposure is an OSM proxy.",
+      "weights": {
+        "oper_excess": 0.6,
+        "limit_excess": 0.25,
+        "vru_exposure": 0.15
+      },
+      "spearman_vs_baseline": 0.9849,
+      "spearman_by_region": {
+        "MAH": 0.9935,
+        "THA": 0.9797
+      },
+      "priority1_n": 1472,
+      "priority1_retained_pct": 87.0,
+      "segments_changing_tier": 1991,
+      "segments_changing_tier_pct": 13.5
+    },
+    "W3_regulatory": {
+      "label": "Regulatory-lever first",
+      "rationale": "A ministry's reading: the posted limit is the lever an authority can actually pull this year; operating speed is downstream of design.",
+      "weights": {
+        "oper_excess": 0.3,
+        "limit_excess": 0.5,
+        "vru_exposure": 0.2
+      },
+      "spearman_vs_baseline": 0.9867,
+      "spearman_by_region": {
+        "MAH": 0.9929,
+        "THA": 0.9836
+      },
+      "priority1_n": 1471,
+      "priority1_retained_pct": 91.0,
+      "segments_changing_tier": 1463,
+      "segments_changing_tier_pct": 9.9
+    },
+    "W4_vru": {
+      "label": "VRU-first",
+      "rationale": "A Safe System / equity reading: exposure of the most vulnerable user should dominate, since they bear the consequence of the mismatch.",
+      "weights": {
+        "oper_excess": 0.35,
+        "limit_excess": 0.25,
+        "vru_exposure": 0.4
+      },
+      "spearman_vs_baseline": 0.9303,
+      "spearman_by_region": {
+        "MAH": 0.9698,
+        "THA": 0.9199
+      },
+      "priority1_n": 1473,
+      "priority1_retained_pct": 71.2,
+      "segments_changing_tier": 3921,
+      "segments_changing_tier_pct": 26.7
+    }
+  },
+  "ensemble": {
+    "n_draws": 2000,
+    "weight_floor": 0.1,
+    "seed": 20260817,
+    "spearman_min": 0.7046,
+    "spearman_median": 0.9536,
+    "spearman_max": 1.0,
+    "baseline_p1": 1473,
+    "robust_core": 481,
+    "weight_dependent": 992,
+    "fragile": 0,
+    "p1_only_under_other_weightings": 0,
+    "contested": 2224
+  }
+}

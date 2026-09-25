@@ -51,6 +51,16 @@ ROADAUDIT = ROOT / "output" / "cv_validation.json"
 BLINDTEST_SUM = ROOT / "output" / "blindtest_summary.json"
 ROADAUDIT_SUM = ROOT / "output" / "roadaudit_summary.json"
 
+# The weight-sensitivity run writes one row per segment with two columns: a continuous
+# p1_frequency (the share of 2,000 weightings under which the segment is Priority 1) and
+# a categorical p1_robustness derived from it. Only the categorical one is carried here.
+# p1_frequency is a continuous function of the three factor scores, one of which is built
+# from the observed speed, and a continuous quantity is easier to invert than a band. The
+# categorical column is what the published map layer already shows, and it is enough to
+# recompute the two figures the narrative quotes.
+WEIGHTS = ROOT / "output" / "weight_scenarios_segments.csv"
+KEEP_WEIGHTS = ["seg_id", "p1_robustness"]
+
 # Every column here is either an identifier, an open-data attribute, or a band.
 KEEP_BASE = ["seg_id", "region", "road_class", "has_school_market", "severity", "tier"]
 KEEP_CV = ["seg_id", "has_cv", "severity_v3", "tier_v3"]
@@ -97,7 +107,7 @@ def write_validation_summaries():
 def main():
     import geopandas as gpd
 
-    missing = [p for p in (BASE, CV) if not p.exists()]
+    missing = [p for p in (BASE, CV, WEIGHTS) if not p.exists()]
     if missing:
         sys.exit("this script runs where the restricted outputs live, not in the public "
                  "repository. Missing: " + ", ".join(p.name for p in missing))
@@ -107,6 +117,13 @@ def main():
     b = g.merge(c, on="seg_id", how="inner", validate="one_to_one")
     if len(b) != len(g):
         sys.exit(f"join lost rows: {len(g)} -> {len(b)}")
+
+    import pandas as pd
+    w = pd.read_csv(WEIGHTS)[KEEP_WEIGHTS]
+    before = len(b)
+    b = b.merge(w, on="seg_id", how="inner", validate="one_to_one")
+    if len(b) != before:
+        sys.exit(f"weight join lost rows: {before} -> {len(b)}")
 
     b["has_school_market"] = b["has_school_market"].astype(bool)
     b["has_cv"] = b["has_cv"].fillna(False).astype(bool)

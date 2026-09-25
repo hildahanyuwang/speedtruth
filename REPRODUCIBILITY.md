@@ -10,13 +10,13 @@ only this repository, and why the difference exists.
 python reproduce.py
 ```
 
-- **40 of the 57 published figures are checked with no credentials and no confidential
-  data.** 25 of those are recomputed from a per-segment table shipped in this
-  repository; 15 are checked against committed aggregates and are marked `~` in the
+- **44 of the 61 published figures are checked with no credentials and no confidential
+  data.** 28 of those are recomputed from a per-segment table shipped in this
+  repository; 16 are checked against committed aggregates and are marked `~` in the
   output, because a check against an aggregate is the weaker of the two.
 - **17 figures are not attempted, and the script names them rather than dropping them.**
   All seventeen need a speed value, which the data licence keeps out of this repository.
-- **A reader holding the challenge data gets all 57**, by placing the challenge files in
+- **A reader holding the challenge data gets all 61**, by placing the challenge files in
   the project root and running the pipeline in `python reproduce.py --chain` order. The
   same command then finds the per-segment outputs and uses them instead.
 
@@ -102,7 +102,7 @@ The script distinguishes them because they are not the same evidence:
 2. Run the upstream stages in the order printed by `python reproduce.py --chain`.
    Stages 4 and 5 need a Mapillary token and a vision-model key; stages 1–3 and 6–8 do
    not.
-3. Run `python reproduce.py`. With the per-segment outputs present it checks all 57 and
+3. Run `python reproduce.py`. With the per-segment outputs present it checks all 61 and
    reports nothing as skipped.
 
 ## Rebuilding the bundle
