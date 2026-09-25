@@ -10,9 +10,9 @@ A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thaila
 
 ## What makes it different
 
-- **We audited and rebuilt our own model** (12 documented fixes) when the data didn't support the first design, and report every fix (`METHODOLOGY.md` §3.6).
-- **We automated iRAP-style road-condition reading from street imagery** with a vision model, whose reads **track functional road class independently** (an unseen field) and are consistency-checked at 90% vs a human rating (a certified-coder study is the refinement-stage upgrade), then used it across 3,537 segments (24% of the network) to *correct our own thresholds in both directions at network scale*, surfacing **39 dangerous roads a posted-limit/POI method structurally cannot find** (`IMAGERY_VERIFICATION.md` Parts D–F). This is a layer the posted-vs-driven "credibility index" does not have.
-- **We are honest about what the data cannot see**, the informal "invisible fleet" of auto-rickshaws, modified and human-powered vehicles, so scores on those corridors are flagged as a conservative lower bound, not hidden.
+- **The model was audited and rebuilt** (12 documented fixes) when the data did not support the first design, and every fix is reported rather than folded in silently (`METHODOLOGY.md` §3.6). The code says why the previous version was wrong.
+- **Road condition is read from street imagery** by a vision model and fed back into an already-computed score, across 3,537 segments (24% of the network), correcting the rule's own thresholds in both directions. Most of that correction moved segments *down*. It also promoted **39 segments from the bottom two tiers straight to Priority 1**: roads with no school or market tagged, which the rule therefore scored low, and which the photograph shows to be pedestrian-mixing streets (`IMAGERY_VERIFICATION.md` Parts D–F). A posted-limit or POI method cannot surface those.
+- **What the data cannot see is flagged, not hidden**: the informal fleet of auto-rickshaws, modified and human-powered vehicles does not appear in probe data, so scores on those corridors are marked a conservative lower bound.
 - **Two axes, decision-ready:** an absolute cross-country severity *and* a within-country priority, on an interactive map where every segment opens a costed decision card.
 
 ## What it delivers (mapped to the challenge)
@@ -35,13 +35,13 @@ A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thaila
 4. **Verify & correct** road condition from street imagery with a vision model. → `imagery_pull.py / imagery_cv_classify.py`, `scoring_cv.py`
 5. **Diagnose, map & cost**, governance flags + intervention priorities. → `make_map.py`, `make_priority_map.py`, `prioritize.py`
 
-## Validation (no crash data was provided, so we are explicit)
-- **Blind imagery test against controls:** 79% agreement; the model's "safe" calls are highly reliable.
-- **Automated road-condition CV:** reads track functional road class *independently*; 90% consistency vs a human rating; bidirectional network-scale self-correction. (Certified-coder reliability study = refinement stage.)
-- **Stability:** Priority-1 set holds at Jaccard 0.82–0.95 under ±30% weight changes.
+## Validation (no crash data was provided, so each check is labelled for what it is)
+- **Blind imagery test:** the model agreed with a blind human rating on **19 of 24 segments (79%)**. The sample is small and each segment is judged from a single frame, so this supports the *direction* of the correction, not its precision.
+- **Road-condition read, one independent check and one consistency check, kept apart:** the independent signal is against the dataset's functional road class, a field the classifier never sees, and the read is cleanly monotonic across it. The **90% (28 of 31)** figure is agreement with a rating by the author, who knew the experimental design, so it is **consistency, not independent corroboration**. A certified-coder study on a larger held-out sample is the refinement-stage upgrade.
+- **Stability, two tests that answer different questions.** Perturbing the published weights by ±30% holds the Priority-1 set at Jaccard 0.82–0.95. Across **2,000 random weightings spanning the whole simplex**, the *ordering* barely moves (median rank correlation **0.954**) but the *cut-off* does: only **481 of the 1,473 Priority 1 segments** are Priority 1 under nearly any weighting, and **992 depend on the weighting chosen**. Both of those counts are checked by `reproduce.py`.
 - **Sample-size robustness (challenge FAQ's explicit ask):** the score correlates *positively* with `SampleSizeTotal` (THA +0.24, MAH +0.43) and Priority-1 segments are *better*-sampled than average, so flags are not a low-sample artefact; high-confidence-only re-ranking retains 78% (THA) / 65% (MAH) of Priority-1. (`src/sensitivity_samplesize.py`)
 - **External convergence (WorldPop):** open population density (FAQ-suggested) confirms the OSM exposure signal (Spearman +0.32/+0.46) and finds ~1,159 high-population segments with no OSM POI, so OSM exposure is a lower bound. (`src/worldpop_exposure.py`)
-- **External convergence:** with iRAP pedestrian star ratings.
+- **External convergence, directional only:** iRAP/ThaiRAP rate 19% of Thai roads 3-star or better for pedestrians; this analysis reaches the same systemic conclusion from a different input (`FINDINGS.md` §3.5). Same direction, not the same measurement.
 - **Honest nulls:** a district-level test against police black spots did *not* converge, expected (reactive vs proactive), reported plainly.
 
 ## Data & compliance (FDUA)
@@ -58,13 +58,13 @@ It compares each published figure with the value recomputed from the committed o
 and exits non-zero if any has drifted. `python reproduce.py --chain` prints the upstream
 pipeline order.
 
-**40 of the 57 figures are checked here, with no API keys and none of the confidential
+**44 of the 61 figures are checked here, with no API keys and none of the confidential
 data.** They run against `output/reproduction_bundle.csv`, one row per scored segment
 carrying the classifications and flags but no coordinates and no speed value of any kind.
 
 **The other 17 are not attempted, and the script names them rather than dropping them.**
 All seventeen need a posted limit or an observed speed, which the licence keeps out of
-this repository; anyone holding the challenge data gets all 57 from the same command. The
+this repository; anyone holding the challenge data gets all 61 from the same command. The
 output also marks which figures are recomputed from per-segment data and which are only
 checked against a committed aggregate, because those are not the same evidence.
 
