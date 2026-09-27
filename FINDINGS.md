@@ -1,22 +1,19 @@
 # SpeedTruth, Findings Summary
 
 > **Terminology note (Phase 2, 2026-08, amended 2026-09-25).** This document is the Phase 1
-> record. Its argument is unchanged; three wordings have been corrected, and the corrections
-> are listed at the end of this note rather than made quietly. Two **priority-tier** labels were renamed for the Phase 2 application:
+> record. Its argument is unchanged; three wordings were corrected on 2026-09-25 and are
+> listed at the end of this note. Two **priority-tier** labels were renamed for the Phase 2 application:
 > `Monitor` → **`Watch`**, and `Compliant` → **`Lower priority`**. The rename applies to the
 > *within-region priority* axis only. The **severity** axis keeps its own four values
 > (`Critical` / `Serious` / `Marginal` / `Compliant`), where `Compliant` is the correct word:
 > operating speed at or below the survivable speed. Reason for the change, and every other
 > change made since Phase 1, are recorded in `CHANGELOG_PHASE2.md`.
 >
-> **Corrected on 2026-09-25:** (1) the 3,679 flagged segments were described as resolving
-> into "2,869 corridors"; 405 of those units are linked corridors and 2,464 are unlinked
-> stretches, and the two are ranked separately. (2) "39 dangerous roads" is now what the 39
-> are: segments the imagery promoted from the bottom two tiers to Priority 1 because the
-> photograph showed a pedestrian-mixing street where no school or market was tagged.
-> (3) the 90% road-condition figure now carries the caveat it always had in
-> `IMAGERY_VERIFICATION.md`: it is 28 of 31 against a rating by the author, who knew the
-> experimental design, so it is consistency, not independent corroboration.
+> **Corrected:** (1) "2,869 corridors" is 2,869 units, of which 405 are linked corridors
+> and 2,464 unlinked stretches, ranked separately. (2) "39 dangerous roads" are 39 segments
+> the imagery promoted from the bottom two tiers to Priority 1. (3) the 90% figure now
+> carries its caveat: 28 of 31 against a rating by the author, so it is consistency, not
+> independent corroboration.
 
 **Identifying where posted speed limits are misaligned with road conditions across Asia-Pacific, and the governance failures behind them.**
 *ADB AI for Safer Roads Innovation Challenge 2026 · Thailand & Maharashtra (India)*

@@ -90,12 +90,9 @@ value, and the gap between them is the point, not an embarrassment: see item 5.
 
 This was the review's only named weakness. Changes on the front page:
 
-> **Amended 25 September 2026.** "The front page" here meant `index.html`, the page the
-> Phase 1 submission opened on. `README.md` was missed, and carried both of the first two
-> wordings below for another seven weeks. Phase 2 submits the repository URL, which means
-> `README.md` is now the page a reader opens first, so the same two changes have been made
-> there, along with the stability claim in item 5b. The entry is amended rather than
-> rewritten, because a changelog that quietly becomes true is not a changelog.
+> **Amended 25 September 2026.** "The front page" here meant `index.html`. `README.md` was
+> missed and still carried the first two wordings below. Phase 2 submits the repository
+> URL, so those two changes, and the stability claim in item 5b, have now been made there.
 
 - **"iRAP-style road-condition coding" → dropped.** The reviewer asked for it, and iRAP
   released Star Rating Model v3.10 in May 2026; describing our work as "iRAP-style" while
