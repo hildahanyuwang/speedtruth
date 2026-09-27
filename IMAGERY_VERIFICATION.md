@@ -1,10 +1,9 @@
 # SpeedTruth, Street-Level Verification
 
 > **Terminology note (Phase 2, 2026-08, amended 2026-09-25).** This document is the Phase 1
-> record. Its evidence and its tables are unchanged. Two wordings were corrected on
-> 2026-09-25, both in the same direction: a reliability claim resting on eight segments is
-> now reported as the count it is, and the closing takeaway no longer compresses three
-> checks of different strength into one word. Neither correction changes a number. Two **priority-tier** labels were renamed for the Phase 2 application:
+> record. Its evidence and tables are unchanged. Two wordings were corrected on 2026-09-25:
+> a reliability claim resting on eight segments is now reported as a count, and the closing
+> takeaway no longer compresses three checks of different strength into one word. Two **priority-tier** labels were renamed for the Phase 2 application:
 > `Monitor` → **`Watch`**, and `Compliant` → **`Lower priority`**. The rename applies to the
 > *within-region priority* axis only. The **severity** axis keeps its own four values
 > (`Critical` / `Serious` / `Marginal` / `Compliant`), where `Compliant` is the correct word:
@@ -67,7 +66,7 @@ The four cases above confirm that flagged roads look hazardous. But a stronger q
 - **4 false negatives in *my* rating** (img_04/05/07 Thailand; one Nashik–Pune segment): all are open or divided high-speed roads with **no VRU visible in the single frame**. Either they are flagged for reasons not visible in one photo (P85 far above the limit; a school/market just out of shot), or they are the **same separated-road false-positive mode** documented in Part A. A single frame cannot settle which, a known limit of frame-level checking.
 - **My one control error:** I over-flagged the Bangkok–Chonburi **Motorway** (a truck and a motorcycle shared the frame); the model correctly scored it Compliant. Here the human was stricter than the model.
 
-**Honest caveats.** This validates the score against **visible road condition**, not crash outcomes. The rater knew the experimental design (though not the per-image score); a single imagery frame is not the whole segment; controls are limited to Mapillary-covered (urban/arterial) roads; n = 24; two Phetkasem-Road segments happened to share one image. Full per-image ratings: `output/blindtest_results.json`.
+**Honest caveats.** This validates the score against **visible road condition**, not crash outcomes. The rater knew the experimental design (though not the per-image score); a single imagery frame is not the whole segment; controls are limited to Mapillary-covered (urban/arterial) roads; n = 24; two Phetkasem-Road segments happened to share one image. Counts and the agreement rate: `output/blindtest_summary.json`. The full per-image ratings carry each segment's posted limit and observed speed, so that file is kept local under the Fair Data Use Agreement.
 
 **Why this matters.** Unlike an aggregate statistic, this shows the Speed Safety Score tracks what a ministry officer would see on the ground, its *safe* calls are trustworthy, its *unsafe* calls are mostly confirmed, and its residual error has a single, namable, fixable cause (separation-aware thresholds). That is a checkable, improvable system, not a black box.
 
@@ -93,7 +92,7 @@ The blind test (Part B) confirmed flagged segments visually; here we itemise spe
 
 ## Part D, Scaled blind ROAD-CONDITION audit (the imagery used correctly)
 
-Street imagery's rigorous use is to read the **static road condition** that determines whether a limit is appropriate, separation, footpath, roadside development, genuine pedestrian mixing, not to count transient traffic. We pulled one Mapillary image for **32 segments** across three strata and the author rated each anonymised image's **road condition BEFORE** seeing the model's assumption (`src/imagery_roadaudit.py`; key `output/roadaudit_key.json`; ratings `output/roadaudit_results.json`).
+Street imagery's rigorous use is to read the **static road condition** that determines whether a limit is appropriate, separation, footpath, roadside development, genuine pedestrian mixing, not to count transient traffic. We pulled one Mapillary image for **32 segments** across three strata and the author rated each anonymised image's **road condition BEFORE** seeing the model's assumption (`src/imagery_roadaudit.py`; the 32 rated images and the summary counts are committed at `output/roadaudit_images/` and `output/roadaudit_summary.json`; the key and the per-image ratings carry the posted limit and observed speed and are kept local under the Fair Data Use Agreement).
 
 | Stratum | What the model assumed | Imagery verdict | Reading |
 |---|---|---|---|
