@@ -44,7 +44,8 @@ def build_map(region):
     g = g[keep]
 
     lat, lon, z = CENTER[region]
-    m = folium.Map(location=[lat, lon], zoom_start=z, tiles="CartoDB positron")
+    m = folium.Map(location=[lat, lon], zoom_start=z, tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                   attr="&copy; OpenStreetMap contributors")
     for c in [4, 2, 1]:                                     # high-cost first, quick-wins on top
         sub = g[g["cost"] == c]
         if not len(sub):

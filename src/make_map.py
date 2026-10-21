@@ -27,7 +27,8 @@ def build_map(region):
     g = g[keep]
 
     lat, lon, z = CENTER[region]
-    m = folium.Map(location=[lat, lon], zoom_start=z, tiles="CartoDB positron")
+    m = folium.Map(location=[lat, lon], zoom_start=z, tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                   attr="&copy; OpenStreetMap contributors")
 
     # draw low→high so Priority sits on top; separate layers for toggling
     for tier in ["Lower priority", "Watch", "Priority 2", "Priority 1"]:
