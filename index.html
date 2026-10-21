@@ -3,81 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SpeedTruth, finding speed limits misaligned with road conditions</title>
+<title>SpeedTruth — is the posted speed limit right for this road?</title>
 <style>
- :root{--ink:#13242f;--mut:#5a6b75;--line:#dde4e8;--accent:#0a7d5a;--red:#c0144c;--amber:#f0a000}
+ :root{--ink:#11161c;--muted:#5f6b78;--line:#dbe1e8;--navy:#002569;--accent:#dd532c;
+       --band:#0b0f14;--paper:#f4f6f8;--high:#c0144c;--low:#2a78d6}
  *{box-sizing:border-box}
- body{margin:0;font:16px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f6f8f9}
- .wrap{max-width:920px;margin:0 auto;padding:0 22px}
- header{background:linear-gradient(160deg,#0d2a36,#11506a);color:#fff;padding:46px 0 38px}
- header h1{margin:0 0 6px;font-size:30px;letter-spacing:.2px}
- header p{margin:0;color:#cfe6ef;font-size:18px;max-width:760px}
- .tag{display:inline-block;margin-top:14px;font-size:13px;color:#9fd8c6;border:1px solid #2f7d6a;border-radius:20px;padding:3px 12px}
- section{padding:30px 0;border-bottom:1px solid var(--line)}
- h2{font-size:20px;margin:0 0 14px}
+ body{margin:0;font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+ .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+ header{background:var(--band);color:#fff;padding:52px 0 44px;border-bottom:3px solid var(--navy)}
+ header .kicker{font-size:12px;letter-spacing:1.1px;text-transform:uppercase;color:#9fb0c2;margin-bottom:14px}
+ header h1{margin:0 0 10px;font-size:34px;letter-spacing:-.3px;line-height:1.2}
+ header p{margin:0;color:#c3d0dc;font-size:18px;max-width:720px}
+ header .rule{width:54px;height:3px;background:var(--accent);margin-top:20px}
+ section{padding:34px 0;border-bottom:1px solid var(--line)}
+ h2{font-size:13px;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
+ .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+ .num{background:#fff;border:1px solid var(--line);border-top:3px solid var(--navy);padding:16px}
+ .num b{display:block;font-size:26px;letter-spacing:-.5px}
+ .num span{font-size:12.5px;color:var(--muted);line-height:1.45;display:block;margin-top:4px}
+ .lede{color:var(--muted);font-size:15px;margin:18px 0 0;max-width:780px}
+ .lede b{color:var(--ink)}
  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
- .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:inherit;display:block}
- .card:hover{border-color:var(--accent);box-shadow:0 2px 10px rgba(0,0,0.05)}
- .card h3{margin:0 0 6px;font-size:17px;color:var(--accent)}
- .card p{margin:0;color:var(--mut);font-size:14px}
- .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0}
- .num{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
- .num b{display:block;font-size:24px;color:var(--ink)}
- .num span{font-size:12px;color:var(--mut)}
- ul.lean{margin:8px 0 0;padding-left:20px;color:var(--mut)}
- ul.lean li{margin:5px 0}
+ .card{background:#fff;border:1px solid var(--line);padding:20px;text-decoration:none;color:inherit;display:block}
+ .card:hover{border-color:var(--navy);box-shadow:0 1px 0 var(--navy)}
+ .card h3{margin:0 0 6px;font-size:17px;color:var(--navy)}
+ .card p{margin:0;color:var(--muted);font-size:14px}
+ .card .tag{display:inline-block;margin-bottom:8px;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;
+            background:var(--navy);color:#fff;padding:2px 8px}
+ .card .tag.alt{background:var(--accent)}
+ ul.lean{margin:0;padding-left:20px;color:var(--muted)}
+ ul.lean li{margin:8px 0}
  ul.lean b{color:var(--ink)}
- footer{padding:24px 0 40px;color:var(--mut);font-size:13px}
- @media(max-width:680px){.grid.nums{grid-template-columns:1fr 1fr}}
+ footer{padding:26px 0 44px;color:var(--muted);font-size:12.5px;background:#fff;border-top:3px solid var(--navy)}
+ code{background:var(--paper);padding:1px 5px;font-size:12.5px}
+ @media(max-width:760px){.nums,.grid{grid-template-columns:1fr 1fr}header h1{font-size:27px}}
 </style>
 </head>
 <body>
+
 <header><div class="wrap">
- <h1>SpeedTruth</h1>
- <p>Where are posted speed limits <b>misaligned with real-world road conditions</b>, putting vulnerable road users at risk, and where should a transport ministry invest first?</p>
- <div class="tag">ADB · AI for Safer Roads 2026 · Thailand &amp; Maharashtra (India)</div>
+ <div class="kicker">ADB · AI for Safer Roads, Safer Speeds Challenge 2026</div>
+ <h1>Is the posted speed limit right for this road?</h1>
+ <p>Most speed work asks whether drivers obey the sign. This scores 14,711 road segments in
+    Thailand and Maharashtra against the speed a person outside the car can survive, checks the
+    number against the law that set it, and names the office that can lawfully change it.</p>
+ <div class="rule"></div>
 </div></header>
 
 <section><div class="wrap">
  <h2>The result in four numbers</h2>
  <div class="nums">
-  <div class="num"><b>14,711</b><span>road segments scored on Safe-System survivable speed</span></div>
-  <div class="num"><b>4,861</b><span>operate &ge;30 km/h above a survivable speed (Critical severity, after imagery correction)</span></div>
-  <div class="num"><b>4,017</b><span>fast segments beside a school or market (median ~52% pedestrian fatality risk)</span></div>
-  <div class="num"><b>1,736</b><span>segments the imagery re-banded, about half of those it covered; the net movement was <i>downward</i></span></div>
+  <div class="num"><b>14,711</b><span>segments scored against a Safe-System survivable speed, of a 69,966-segment network</span></div>
+  <div class="num"><b>4,861</b><span>operate at least 30 km/h above a survivable speed (Critical, after imagery correction)</span></div>
+  <div class="num"><b>4,017</b><span>fast segments beside a school or market</span></div>
+  <div class="num"><b>1,736</b><span>re-banded by street imagery — and the net movement was <i>downward</i></span></div>
  </div>
- <p style="color:var(--mut);font-size:14px">The headline is not that drivers speed, on the priority corridors they often travel below the limit. It is that <b>the limit itself is set for a road that no longer exists</b>: a bypass posted at highway speed that informal traffic and roadside development have grown into.</p>
+ <p class="lede">On the priority corridors drivers often travel <i>below</i> the limit, so the finding is not
+   that people speed. It is that <b>the limit itself was set for a road that no longer exists</b>: a bypass
+   posted at highway speed that informal traffic and roadside development have since grown into.</p>
 </div></section>
 
 <section><div class="wrap">
- <h2>Open the decision tool</h2>
+ <h2>Open it</h2>
  <div class="grid">
-  <a class="card" href="output/priority_map_THA.html"><h3>Thailand · where to invest first →</h3><p>Interactive map, coloured by what the fix costs. Click any segment for its decision card: the misalignment, why the limit is flagged, the recommended intervention and the return.</p></a>
-  <a class="card" href="output/priority_map_MAH.html"><h3>Maharashtra · where to invest first →</h3><p>Same, for the Indian network. Green = near-zero-cost quick wins (just re-set the limit); red = needs physical protection.</p></a>
-  <a class="card" href="output/corridor_map.html"><h3>Investment corridors · where to fund first →</h3><p>Flagged segments rolled into fundable, named corridors. The top 20% carry ~76% of the avoidable harm. Click any corridor for its costed action and a coordinate to inspect. Returns shown are <b>indicative, drawn from published intervention studies</b>, not an economic evaluation of these roads.</p></a>
+  <a class="card" href="app/"><span class="tag alt">Work in it</span>
+   <h3>Speed-limit review queue →</h3>
+   <p>Filter the network down to this quarter's work list, open one unit as an evidence card with its
+      map and the photograph the model read, see who can lawfully change that limit, and export a
+      field-check list. No account, no licence.</p></a>
+  <a class="card" href="https://arcg.is/1G1fnz6"><span class="tag">Read it</span>
+   <h3>The Gap Between What Is Allowed and What Is Safe →</h3>
+   <p>Nine chapters: the sign, the three numbers one road carries, the gap at network scale, how the
+      score is built, how it was checked, who can change it, and what could not be done.</p></a>
  </div>
 </div></section>
 
 <section><div class="wrap">
- <h2>Worked example &amp; method</h2>
+ <h2>Maps and the worked example</h2>
  <div class="grid">
-  <a class="card" href="PILOT_CORRIDOR.html"><h3>Pilot dossier: Katraj–Dehu Bypass →</h3><p>One corridor, fully worked: posted at highway speed though operating speeds run below it, auto-rickshaws and unhelmeted riders photographed mixing on it, a costed, decision-ready intervention.</p></a>
-  <a class="card" href="FINDINGS.docx"><h3>Findings summary (≤5 pp) →</h3><p>The full diagnosis, investment case, and an unusually candid section on what the model does and does not claim.</p></a>
+  <a class="card" href="output/priority_map_THA.html"><h3>Thailand · where to invest first →</h3>
+   <p>Interactive map coloured by what the fix costs. Click a segment for its decision card.</p></a>
+  <a class="card" href="output/priority_map_MAH.html"><h3>Maharashtra · where to invest first →</h3>
+   <p>The same instrument on the Indian network, where it returns the opposite answer.</p></a>
+  <a class="card" href="output/corridor_map.html"><h3>Investment corridors →</h3>
+   <p>Flagged segments rolled into fundable, named corridors. Returns are indicative, drawn from
+      published intervention studies, not an economic evaluation of these roads.</p></a>
+  <a class="card" href="PILOT_CORRIDOR.html"><h3>Pilot dossier: Katraj–Dehu Bypass →</h3>
+   <p>One corridor worked end to end: what is wrong, what the photograph shows, what to do first,
+      and who signs it.</p></a>
  </div>
 </div></section>
 
 <section><div class="wrap">
- <h2>What makes it trustworthy</h2>
+ <h2>What makes it checkable</h2>
  <ul class="lean">
-  <li><b>We audited our own model</b> and rebuilt it where the data did not support it (12 documented fixes).</li>
-  <li><b>A vision model reads the road condition</b> from Mapillary imagery and feeds the result back into the score. We use it to quantify our own threshold's weakness rather than hide it: imagery moved 1,736 segments, and it mostly found our rule <i>too harsh</i>, not new hidden danger.</li>
-  <li><b>Ground-truthed blind, against controls.</b> The model agreed with a blind human rating on 19 of 24 segments (79%). The sample is small and each segment is judged from a single frame, so this supports the <i>direction</i> of the correction, not its precision. Imagery covers ~24% of the network.</li>
-  <li><b>Honest about the invisible fleet</b>: informal three-wheelers and unhelmeted riders the probe data cannot see, so our scores on those corridors are a conservative lower bound.</li>
+  <li><b>The model audits itself.</b> Twelve documented places where the first design was wrong and was
+      rebuilt, including a factor removed for correlating at 0.80 with another.</li>
+  <li><b>It takes alarms away.</b> A vision model reads road condition from Mapillary imagery and feeds it
+      back into the score. It moved 1,736 segments and mostly found the rule <i>too harsh</i>, not new
+      hidden danger — 1,552 down, 184 up.</li>
+  <li><b>Coverage is stated, not implied.</b> Imagery verifies 3,537 segments: 24% of the segments scored,
+      about 5% of the full network. Everything outside that is screened, not verified.</li>
+  <li><b>The weak half is named.</b> Of 1,473 Priority 1 segments, only 481 hold under nearly any
+      weighting; the other 992 depend on the weighting chosen here.</li>
+  <li><b>Anyone can recompute it.</b> <code>python reproduce.py</code> checks 44 of the 61 published figures
+      with no credentials and no confidential data, and names the other 17 rather than dropping them.</li>
+  <li><b>Honest about the invisible fleet.</b> Auto-rickshaws, modified and human-powered vehicles do not
+      appear in probe data and barely appear in OpenStreetMap, so scores on those corridors are a
+      conservative lower bound.</li>
  </ul>
 </div></section>
 
 <footer><div class="wrap">
- Transparent, rule-based, country-agnostic. Network data © OpenStreetMap contributors, Overture Maps Foundation; street imagery © Mapillary contributors (CC&nbsp;BY-SA). Challenge data held confidential under FDUA. Method: <code>METHODOLOGY.md</code> · Sources: <code>SOURCES.md</code> · Verification: <code>IMAGERY_VERIFICATION.md</code>.
+ Transparent, rule-based, country-agnostic. Network data © OpenStreetMap contributors and Overture Maps
+ Foundation; street imagery © Mapillary contributors (CC&nbsp;BY-SA); basemap tiles © OpenStreetMap
+ contributors. Challenge data held confidential under the Fair Data Use Agreement: only derived outputs
+ are published here, never raw probe values. Method: <code>METHODOLOGY.md</code> · Sources:
+ <code>SOURCES.md</code> · Verification: <code>IMAGERY_VERIFICATION.md</code> · Reproduction:
+ <code>REPRODUCIBILITY.md</code>.
 </div></footer>
+
 </body>
 </html>
