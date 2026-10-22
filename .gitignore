@@ -6,6 +6,11 @@ __pycache__/
 # FDUA: NEVER commit raw challenge data or any per-segment derived table that
 # could reconstruct raw probe values (posted limit, P85, distributions, counts).
 *.geojson
+# ...except the two corridor layers, which carry only derived fields
+# (output/egis/field_aliases.json) and whose geometry is already public
+# through output/corridor_map.html. The segment layers stay ignored:
+# they carry speed_limit, speed_p85 and speed_median.
+!output/egis/speedtruth_corridors_*.geojson
 *.gpkg
 *.xlsx
 *.pdf
