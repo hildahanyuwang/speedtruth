@@ -49,3 +49,8 @@ published figures.
 The research question, the analytical choices, and the primary sources are the author's.
 The Royal Gazette originals behind the legal chapters could not be retrieved
 programmatically; they were located and downloaded by hand and read page by page.
+
+The narration on the backup demonstration recording submitted for the final pitch is
+synthetic speech reading a script written by the author. No part of the analysis, the
+figures or the legal reading was produced that way, and the recording shows the live
+application rather than generated footage of it.
