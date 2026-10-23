@@ -2,7 +2,7 @@
 
 **Identifying where posted speed limits are misaligned with real-world road conditions, and the governance failures behind them.**
 
-A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thailand & Maharashtra, India). SpeedTruth scores every road segment on how far its posted limit and operating speed depart from **Safe System survivable speeds**, weighted by vulnerable-road-user (VRU) exposure, and attaches a plain-language *governance flag* explaining the probable reason the limit has drifted from reality.
+A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thailand & Maharashtra, India). Code and documentation are released under the [MIT licence](LICENSE); the third-party data and street-level imagery this repository redistributes keep their own terms, listed in [NOTICE](NOTICE). SpeedTruth scores every road segment on how far its posted limit and operating speed depart from **Safe System survivable speeds**, weighted by vulnerable-road-user (VRU) exposure, and attaches a plain-language *governance flag* explaining the probable reason the limit has drifted from reality.
 
 > **Framing.** The challenge asks whether a posted limit is appropriate for its road. This submission answers that, and then asks a second question the brief does not: which document set that number, and which office can lawfully change it. Where a limit no longer suits its road, what has failed is the review process that was supposed to keep it current.
 

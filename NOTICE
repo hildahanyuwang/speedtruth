@@ -1,0 +1,75 @@
+SpeedTruth — third-party data and imagery
+=========================================
+
+The code and written documentation in this repository are under the MIT
+licence (see LICENSE). The material below is not, and keeps the terms its
+provider set. Each item names where in the repository it appears.
+
+
+Street-level imagery
+--------------------
+234 street-level frames under `output/cv_images/`, `output/blindtest_images/`
+and `output/roadaudit_images/`.
+
+  © Mapillary contributors, licensed CC BY-SA 4.0
+  https://creativecommons.org/licenses/by-sa/4.0/
+
+These frames are redistributed under the same licence. Anything derived from
+them and redistributed must carry CC BY-SA 4.0 as well. The classifications
+computed from them (severity bands, re-banding counts) are measurements about
+the frames rather than derivatives of them, and are released under the MIT
+licence with the rest of the outputs.
+
+
+Road network, geometry and points of interest
+---------------------------------------------
+Road centrelines, functional class, footways, schools, markets and other
+points of interest, used throughout `src/` and present in the published
+corridor geometry under `output/egis/`.
+
+  © OpenStreetMap contributors, licensed ODbL 1.0
+  https://opendatacommons.org/licenses/odbl/1-0/
+
+  Overture Maps Foundation road data, under ODbL 1.0 and CDLA-Permissive 2.0
+  https://overturemaps.org/
+
+Where a produced file contains OSM-derived geometry, it is a Derivative
+Database under ODbL and is offered under the same terms.
+
+
+Population
+----------
+Population density used in the external convergence check
+(`src/worldpop_exposure.py`).
+
+  WorldPop, University of Southampton, licensed CC BY 4.0
+  https://www.worldpop.org/
+
+
+Basemaps and mapping libraries
+------------------------------
+  Leaflet — BSD-2-Clause
+  Esri basemaps in the published ArcGIS items — Esri Master Agreement terms,
+  displayed with the attribution Esri requires
+
+
+Challenge data
+--------------
+The ADB challenge datasets (posted limits, probe speeds, segment geometry as
+supplied) are NOT in this repository and are not redistributed in any form.
+They are governed by ADB's Fair Data Use Agreement, which requires
+confidentiality and deletion within 14 days of participation ending. Under
+FDUA §4.4 only derived outputs appear here. `.gitignore` blocks the raw files,
+geometry-bearing derivatives, and any per-segment table from which a probe
+value could be reconstructed. See DATA_INVENTORY.md for the field-by-field
+account.
+
+
+Legal instruments
+-----------------
+The nineteen Acts, ministerial regulations and gazette notices in the register
+(`sources/`, and the register view in `app/`) are official publications of the
+Government of Thailand and the Government of Maharashtra, India. They are
+cited with volume, part, page and date; the originals are not redistributed
+where the publisher's terms do not permit it, and the register records which
+seventeen were obtained and which two were not.
