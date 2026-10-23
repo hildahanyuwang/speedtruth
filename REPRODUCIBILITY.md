@@ -96,6 +96,23 @@ The script distinguishes them because they are not the same evidence:
    the outputs. It does not re-derive the number from the segments.
 3. **Not attempted** — named in the output with the reason, never silently omitted.
 
+## The three imagery scripts, and which one is the pipeline
+
+The Phase 1 review noted that several street-imagery scripts look like near
+duplicates and asked for an unambiguous reproduction path. They are not
+duplicates; they do three different jobs, and only one of them is on the
+pipeline:
+
+| Script | Job | On the pipeline? |
+|---|---|---|
+| `src/imagery_pull.py` | Pulls Mapillary frames for a scope and writes the manifest the vision model reads. `--scope priority` is the call that produced the committed set. | **Yes.** Stage 4 of the chain. |
+| `src/imagery_blindtest.py` | Builds the 24-segment blind validation set with controls, for a human rater who cannot see the model's answer. Run once; its output is `output/blindtest_summary.json`. | No. Validation only. |
+| `src/imagery_roadaudit.py` | The scaled road-condition audit that produced `output/cv_audit_summary.json`. Run once. | No. Validation only. |
+
+`python reproduce.py` checks the published figures against the committed
+outputs of all three without re-pulling any imagery, so the reproduction path
+does not depend on a Mapillary key or on which script produced which file.
+
 ## Running the full check with the challenge data
 
 1. Place the challenge files in the project root.

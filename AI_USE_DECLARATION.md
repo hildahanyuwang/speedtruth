@@ -51,6 +51,8 @@ The Royal Gazette originals behind the legal chapters could not be retrieved
 programmatically; they were located and downloaded by hand and read page by page.
 
 The narration on the backup demonstration recording submitted for the final pitch is
-synthetic speech reading a script written by the author. No part of the analysis, the
+synthetic speech: **ElevenLabs `eleven_multilingual_v2`, voice "Alice"**, reading a script
+written by the author (`_dev_scripts/build_voice.py`; the script itself is in
+`video_assets/narration.md`). No part of the analysis, the
 figures or the legal reading was produced that way, and the recording shows the live
 application rather than generated footage of it.
