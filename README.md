@@ -4,12 +4,13 @@
 
 A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thailand & Maharashtra, India). SpeedTruth scores every road segment on how far its posted limit and operating speed depart from **Safe System survivable speeds**, weighted by vulnerable-road-user (VRU) exposure, and attaches a plain-language *governance flag* explaining the probable reason the limit has drifted from reality.
 
-> **Framing.** Not "do drivers obey the limit?" but **"is the limit itself right for this road and its most vulnerable users?"**, the question the standard speed-compliance KPI silently skips. Where a limit is wrong, that is a *governance-maintenance failure*: the limit-review process has fallen behind the road.
+> **Framing.** The challenge asks whether a posted limit is appropriate for its road. This submission answers that, and then asks a second question the brief does not: which document set that number, and which office can lawfully change it. Where a limit no longer suits its road, what has failed is the review process that was supposed to keep it current.
 
 ---
 
 ## What makes it different
 
+- **Every limit is traced to the instrument that set it.** Nineteen legal instruments were read from the Acts and the gazette originals and seventeen obtained; each unit names the office with statutory power to change its limit, and says so plainly where that office could not be identified (Maharashtra). The register is published in the application and in `SOURCES.md`.
 - **The model was audited and rebuilt** (12 documented fixes) when the data did not support the first design, and every fix is reported rather than folded in silently (`METHODOLOGY.md` §3.6). The code says why the previous version was wrong.
 - **Road condition is read from street imagery** by a vision model and fed back into an already-computed score, across 3,537 segments (24% of the network), correcting the rule's own thresholds in both directions. Most of that correction moved segments *down*. It also promoted **39 segments from the bottom two tiers straight to Priority 1**: roads with no school or market tagged, which the rule therefore scored low, and which the photograph shows to be pedestrian-mixing streets (`IMAGERY_VERIFICATION.md` Parts D–F). A posted-limit or POI method cannot surface those.
 - **What the data cannot see is flagged, not hidden**: the informal fleet of auto-rickshaws, modified and human-powered vehicles does not appear in probe data, so scores on those corridors are marked a conservative lower bound.
@@ -27,6 +28,7 @@ A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thaila
 | *Bonus:* investment corridor short-list | [`CORRIDORS.md`](CORRIDORS.md), flagged segments rolled into fundable corridors (`src/corridors.py`, `output/corridor_map.html`) |
 | *Bonus:* visual validation | [`IMAGERY_VERIFICATION.md`](IMAGERY_VERIFICATION.md), blind test + automated CV audit |
 | *Bonus:* honest adoption path | [`ADOPTION.md`](ADOPTION.md), what a ministry still needs, with timelines |
+| *Bonus:* review queue for an officer | [`app/index.html`](app/index.html) → **hildahanyuwang.github.io/speedtruth/app** — filter the network to a work list, open one unit as an evidence card, read who can change its limit, export a field-check list. Built **after** the technical review from the same published outputs; the reviewed solution is unchanged (`CHANGELOG_PHASE2.md` §8). |
 
 ## Approach in brief
 1. **Harmonize** two heterogeneous country datasets into one schema; clean. → `harmonize.py`
