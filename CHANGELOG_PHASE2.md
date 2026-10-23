@@ -165,6 +165,44 @@ missing and safe when something is.
 
 ---
 
+## 2026-10-22, after the Phase 2 technical review
+
+Everything above sits between the Phase 1 review and the Phase 2 submission of
+27 September. This section is later than that and is kept separate for a reason: the
+reviewed solution — the story, the two web maps and the four hosted layers in ADB's
+sandbox — is unchanged and stays unchanged. What follows sits beside it.
+
+### 8. A review queue built from the published outputs
+
+`app/index.html`, served at `hildahanyuwang.github.io/speedtruth/app/`.
+
+The submitted deliverables are a model, two maps and a set of documents. None of them is
+the thing a transport officer works in: a filtered list, one unit at a time, and something
+to take away at the end. The queue reads `output/corridors_summary.csv` and the corridor
+geometry already committed here, adds no new analysis, and needs no account and no licence.
+
+| On a unit's card | Read from |
+|---|---|
+| Ranked list, filterable by country, unit type, and whether the limit is the lever | `output/corridors_summary.csv` |
+| The street-level frame the model read, with its distance from the inspect point stated | the committed Mapillary frames under `output/` |
+| First action in three tiers, each with a cost band and the published basis for that class | `PILOT_CORRIDOR.md` §4 |
+| BCR index, attributed to iRAP India Four States (2011) rather than to "published studies" | `src/impact_scenario.py` |
+| The office that can lawfully change the limit, and the road-specific gazette findings | `sources/legal/register.csv` |
+| What the card does not claim, and what the officer records after the site visit | `ADOPTION.md` |
+
+A second view lists the nineteen instruments the authority layer was read from: issuing
+authority, enabling provision, what each governs, gazette citation, date, and whether the
+original is held. Two of the nineteen could not be obtained; those rows stay in the table
+and are marked, because the unnamed delegation in Maharashtra is part of the finding.
+
+**What it is not.** It is not an Esri application and it is not in the sandbox, so it
+neither replaces nor amends the submitted solution: Phase 2 Step 2 is met by the StoryMap,
+the web maps and the hosted layers as submitted. It carries no challenge data — under FDUA
+clause 4.4 only derived outputs may be shared, and no posted limit or probe speed appears
+in it or can be reconstructed from it.
+
+---
+
 ## What has not changed, deliberately
 
 - **Phase 1 deliverables keep their reviewed wording.** `FINDINGS`, `METHODOLOGY`,
