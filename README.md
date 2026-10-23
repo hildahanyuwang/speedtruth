@@ -4,6 +4,16 @@
 
 A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thailand & Maharashtra, India). Code and documentation are released under the [MIT licence](LICENSE); the third-party data and street-level imagery this repository redistributes keep their own terms, listed in [NOTICE](NOTICE). SpeedTruth scores every road segment on how far its posted limit and operating speed depart from **Safe System survivable speeds**, weighted by vulnerable-road-user (VRU) exposure, and attaches a plain-language *governance flag* explaining the probable reason the limit has drifted from reality.
 
+## Open it
+
+| Where | What it is |
+|---|---|
+| **[Review queue →](https://hildahanyuwang.github.io/speedtruth/app/)** | The planner-facing tool. Filter the network down to this quarter's work list, open one unit as an evidence card with the photograph the model read, see who can lawfully change its limit, and export a field-check list with a coordinate per line. **No account, no licence, nothing to install.** |
+| **[Project front page →](https://hildahanyuwang.github.io/speedtruth/)** | The four headline figures, and the way into the maps, the queue and the written chapters. |
+| **[Submitted solution →](https://arcg.is/1G1fnz6)** | StoryMap, two web maps and four hosted feature layers in the ADB GIS sandbox. Unchanged since the technical review. |
+
+---
+
 > **Framing.** The challenge asks whether a posted limit is appropriate for its road. This submission answers that, and then asks a second question the brief does not: which document set that number, and which office can lawfully change it. Where a limit no longer suits its road, what has failed is the review process that was supposed to keep it current.
 
 ---
@@ -28,7 +38,7 @@ A submission to the **ADB AI for Safer Roads Innovation Challenge 2026** (Thaila
 | *Bonus:* investment corridor short-list | [`CORRIDORS.md`](CORRIDORS.md), flagged segments rolled into fundable corridors (`src/corridors.py`, `output/corridor_map.html`) |
 | *Bonus:* visual validation | [`IMAGERY_VERIFICATION.md`](IMAGERY_VERIFICATION.md), blind test + automated CV audit |
 | *Bonus:* honest adoption path | [`ADOPTION.md`](ADOPTION.md), what a ministry still needs, with timelines |
-| *Bonus:* review queue for an officer | [`app/index.html`](app/index.html) → **hildahanyuwang.github.io/speedtruth/app** — filter the network to a work list, open one unit as an evidence card, read who can change its limit, export a field-check list. Built **after** the technical review from the same published outputs; the reviewed solution is unchanged (`CHANGELOG_PHASE2.md` §8). |
+| *Bonus:* review queue for an officer | [`app/index.html`](app/index.html) → **[hildahanyuwang.github.io/speedtruth/app](https://hildahanyuwang.github.io/speedtruth/app/)** — filter the network to a work list, open one unit as an evidence card, read who can change its limit, export a field-check list. Built **after** the technical review from the same published outputs; the reviewed solution is unchanged (`CHANGELOG_PHASE2.md` §8). |
 
 ## Approach in brief
 1. **Harmonize** two heterogeneous country datasets into one schema; clean. → `harmonize.py`
